@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Movie Media</title>
+        <link type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+        <link type="text/css" href="/stylesheets/main.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container">
+            <h1>Result: </h1>
+            <% if (!movies.Search) { %>
+                <div class="row">
+                    <h1>0 results found</h1>
+                </div>
+            <% } else { %>
+                <div class="row">
+                    <h1><%= movies.totalResults %> results found</h1>
+                </div>
+                <div class="row">
+                    <% movies.Search.forEach(function(m) { %>
+                        <div class="thumbnail col-md-3">
+                            <a href="/movies/<%= m.imdbID %>"><img src="<%= m.Poster %>" alt="<%= m["Title"] %> - Poster"></a>
+                            <p><%= m.Title %> - <%= m.Year %></p>
+                        </div>
+                    <% }); %>
+                </div>
+            <% } %>
+        </div>
+    </body>
+</html>

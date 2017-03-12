@@ -1,0 +1,10 @@
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.info {
+    margin: 50px;
+    border: 1px solid gray;
+    text-align: center;
+}
