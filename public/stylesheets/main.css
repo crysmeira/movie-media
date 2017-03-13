@@ -1,10 +1,25 @@
+span {
+    display: none;
+}
+
 .row {
     display: flex;
     flex-wrap: wrap;
+    margin: 0 auto;
+}
+
+.thumbnail {
+    margin: 10px 10px;
+    width: 250px;
 }
 
 .info {
     margin: 50px;
     border: 1px solid gray;
     text-align: center;
+}
+
+.comments {
+    margin: 50px;
+    border: 1px solid gray;
 }

@@ -6,19 +6,59 @@
         <link type="text/css" href="/stylesheets/main.css" rel="stylesheet">
     </head>
     <body>
+        <nav class="navbar navbar-default">
+          <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-facetime-video" aria-hidden="true"></span> Movie Media</a>
+            </div>
+        
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">Login</a></li>
+                <li><a href="#">Sign up</a></li>
+              </ul>
+            </div><!-- /.navbar-collapse -->
+          </div><!-- /.container-fluid -->
+        </nav>
         <div class="container info">
-            <h1><%= info.Title %> - <%= info.Year %></h1>
+            <h1><%= info["Title"] %> - <%= info["Year"] %></h1>
             <div class="row">
                 <div class="col-md-12">
-                    <img src="<%= info.Poster %>" alt="<%= info.Poster %> - Poster">
+                    <img src="<%= info["Poster"] %>" alt="<%= info["Poster"] %> - Poster">
                 </div>
                 <div class="col-md-12">
-                    <a href="http://www.imdb.com/title/<%= info.imdbID %>" class="btn btn-primary">Link to IMDb</a>
+                    <a href="http://www.imdb.com/title/<%= info["imdbID"] %>" class="btn btn-primary">Link to IMDb</a>
+                </div>
+                <div class="col-md-6">
+                    <%= info["Runtime"] %>
+                </div>
+                <div class="col-md-6">
+                    Genre: <%= info["Genre"] %>
                 </div>
                 <div class="col-md-12">
-                    <p><%= info.Plot %></p>
+                    Director: <%= info["Director"] %>
+                </div>
+                <div class="col-md-12">
+                    Actors: <%= info["Actors"] %>
+                </div>
+                <div class="col-md-12">
+                    IMDb Rating: <%= info["imdbRating"] %>
+                </div>
+                <div class="col-md-12">
+                    <p><%= info["Plot"] %></p>
                 </div>
             </div>
+        </div>
+        <div class="container comments">
+            <h1>Comments</h1>
         </div>
     </body>
 </html>
