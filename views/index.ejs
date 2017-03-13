@@ -1,13 +1,11 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Movie Media</title>
-    </head>
-    <body>
-        <form action="/" method="POST">
-            <input type="text" name="search" placeholder="Enter your search here...">
-            <input type="hidden" name="page" value="1">
-            <input type="submit" value="Search">
-        </form>
-    </body>
-</html>
+<% include partials/header %>
+
+<div class="container">
+    <form action="/" method="POST">
+        <input type="text" name="search" placeholder="Enter your search here...">
+        <input type="hidden" name="page" value="1">
+        <input type="submit" class="btn btn-primary" value="Search">
+    </form>
+</div>
+
+<% include partials/footer %>

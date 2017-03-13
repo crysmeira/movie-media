@@ -1,25 +1,43 @@
-span {
+.search {
     display: none;
 }
 
 .row {
     display: flex;
     flex-wrap: wrap;
-    margin: 0 auto;
+    margin: auto;
+}
+
+.movies {
+    margin: 10px 0;
+}
+
+.elem {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.poster {
+    margin: 8px 0px;
+    padding: 5px 5px;
+    border: 1px solid #d4d7db;
 }
 
 .thumbnail {
-    margin: 10px 10px;
-    width: 250px;
+    border: none;
+    margin-bottom: 0;
+}
+
+.title {
+    text-align: center;
 }
 
 .info {
     margin: 50px;
-    border: 1px solid gray;
+    border: 1px solid #d4d7db;
     text-align: center;
 }
 
 .comments {
     margin: 50px;
-    border: 1px solid gray;
+    border: 1px solid #d4d7db;
 }
