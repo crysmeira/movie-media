@@ -5,12 +5,14 @@ loadMore(search, page);
 function loadMore(seach, page) {
     console.log("loading " + search + " " + page);
     $.getJSON("https://www.omdbapi.com/?s="+search+"&page="+page, function(data) {
+        var divInfo = $(".additional-info")[0];
+        var element = document.createElement("div");
         if (!data["Search"]) {
+            element.innerHTML = "<h3>No results were found</h3>";
+            $(divInfo).append(element);
             return;
         }
         if (page == 1) {
-            var divInfo = $(".additional-info")[0];
-            var element = document.createElement("div");
             element.innerHTML = "<h3>" + data["totalResults"] + " results found</h3>";
             $(divInfo).append(element);
         }
@@ -36,21 +38,22 @@ class Movie {
         var imdbID = this.data["imdbID"];
         var title = this.data["Title"];
         var poster = this.data["Poster"];
-        if (poster === "N/A") {
-            poster = "https://s-media-cache-ak0.pinimg.com/736x/92/9d/3d/929d3d9f76f406b5ac6020323d2d32dc.jpg";
+        if (!poster || poster === "N/A") {
+            poster = "/images/no_image_available.png";
         }
         var year = this.data["Year"];
-        pageElement.className = "col-md-3 col-sm-4 col-xs-6 elem";
+        pageElement.className = "col col-md-3 col-sm-4 col-xs-6";
         pageElement.innerHTML = this.generateHTML(imdbID, title, year, poster);
     }
     
     generateHTML(imdbID, title, year, poster) {
-        return  "<div class='poster'>" +
-                    "<a class='thumbnail' href='/movies/" + imdbID + "'>" +
+        return  "<a class='thumbnail' href='/movies/" + imdbID + "'>" +
+                    "<div class='poster'>" +
                         "<img class='img-responsive' src=" + poster + " alt=" + title + " - Poster>" + 
-                    "</a>" +
-                    "<p class='title'>" + title + " - " + year + "</p>" +
-                "</div>";
+                        "<p class='title'>" + title + "</p>" +
+                        "<p>(" + year + ")</p>" +
+                    "</div>" +
+                "</a>";
     }
 }
 

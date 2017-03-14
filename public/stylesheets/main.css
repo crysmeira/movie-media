@@ -1,3 +1,15 @@
+a {
+    color: gray;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+a:hover {
+    opacity: 0.8;
+}
+
 .search {
     display: none;
 }
@@ -8,36 +20,51 @@
     margin: auto;
 }
 
-.movies {
-    margin: 10px 0;
-}
-
-.elem {
+.col {
     padding-left: 10px;
     padding-right: 10px;
-}
-.poster {
-    margin: 8px 0px;
-    padding: 5px 5px;
-    border: 1px solid #d4d7db;
 }
 
 .thumbnail {
     border: none;
-    margin-bottom: 0;
+    margin: 8px auto;
+}
+
+.poster {
+    padding: 5px;
+    border: 1px solid #d4d7db;
+    text-align: center;
 }
 
 .title {
-    text-align: center;
+    font-weight: bold;
+    margin-bottom: 0;
+    margin-top: 10px;
+}
+
+.container-info {
+    border: 1px solid #d4d7db;
+    margin: 20px auto;
+    padding: 30px;
 }
 
 .info {
-    margin: 50px;
-    border: 1px solid #d4d7db;
-    text-align: center;
+    margin: auto;
 }
 
 .comments {
-    margin: 50px;
+    margin-top: 50px;
     border: 1px solid #d4d7db;
+}
+
+.img-responsive {
+    margin: auto;
+}
+
+.field-title {
+    font-weight: bold;
+}
+
+.center {
+    text-align: center;
 }

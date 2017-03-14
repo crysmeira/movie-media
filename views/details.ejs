@@ -1,36 +1,32 @@
 <% include partials/header %>
 
-<div class="container info">
-    <h1><%= info["Title"] %> - <%= info["Year"] %></h1>
-    <div class="row">
-        <div class="col-md-12">
-            <img src="<%= info["Poster"] %>" alt="<%= info["Poster"] %> - Poster">
+<div class="container">
+    <h1 class="center"><%= info["Title"] %> - (<%= info["Year"] %>)</h1>
+    <div class="row container-info">
+        <div class="col-sm-4 col-xs-12 center info">
+            <% if (info["Poster"]) { %>
+                <img class="img-responsive" src="<%= info["Poster"] %>" alt="<%= info["Title"] %> - Poster">
+            <% } else { %>
+                <img class="img-responsive" src="/images/no_image_available.png" alt="<%= info["Title"] %> - Poster">
+            <% } %>
         </div>
-        <div class="col-md-12">
-            <a href="http://www.imdb.com/title/<%= info["imdbID"] %>" class="btn btn-primary">Link to IMDb</a>
-        </div>
-        <div class="col-md-6">
-            <%= info["Runtime"] %>
-        </div>
-        <div class="col-md-6">
-            Genre: <%= info["Genre"] %>
-        </div>
-        <div class="col-md-12">
-            Director: <%= info["Director"] %>
-        </div>
-        <div class="col-md-12">
-            Actors: <%= info["Actors"] %>
-        </div>
-        <div class="col-md-12">
-            IMDb Rating: <%= info["imdbRating"] %>
-        </div>
-        <div class="col-md-12">
-            <p><%= info["Plot"] %></p>
+        <div class="col-sm-8 col-xs-12 info">
+            <p><span class="field-title">Genre: </span><%= info["Genre"] %></p>
+            <p><span class="field-title">Director: </span><%= info["Director"] %></p>
+            <p><span class="field-title">Actors: </span><%= info["Actors"] %></p>
+            <p><span class="field-title">Duration: </span><%= info["Runtime"] %></p>
+            <p><span class="field-title">IMDb Rating: </span><%= info["imdbRating"] %></p>
+            <p><span class="field-title">Plot: </span><%= info["Plot"] %></p>
+            <p><a href="http://www.imdb.com/title/<%= info["imdbID"] %>" class="btn btn-default">Link to IMDb</a></p>
         </div>
     </div>
 </div>
-<div class="container comments">
-    <h1>Comments</h1>
+
+<div class="container">
+    <div class="row container-info">
+        <h1>Comments</h1>
+        
+    </div>
 </div>
 
 <% include partials/footer %>

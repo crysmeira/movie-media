@@ -1,11 +1,20 @@
-<% include partials/header %>
-
-<div class="container">
-    <form action="/" method="POST">
-        <input type="text" name="search" placeholder="Enter your search here...">
-        <input type="hidden" name="page" value="1">
-        <input type="submit" class="btn btn-primary" value="Search">
-    </form>
-</div>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Movie Media</title>
+        <link type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+        <link type="text/css" href="/stylesheets/search.css" rel="stylesheet">
+        <script type="text/javascript" src="/js/jquery-3.1.1.js"></script>
+    </head>
+    <body>
+        <div id="search-header">
+            <h1>Search your movie</h1>
+            <form action="/" method="POST">
+                <input type="text" name="search" placeholder="Enter your search here...">
+                <input type="submit" class="btn btn-default" value="Search">
+            </form>
+        </div>
 
 <% include partials/footer %>
