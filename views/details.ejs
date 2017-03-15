@@ -23,9 +23,14 @@
 </div>
 
 <div class="container">
-    <div class="row container-info">
+    <div class="container-info">
         <h1>Comments</h1>
-        
+        <a class="btn btn-default" href="/movies/<%= info["imdbID"] %>/comments/new">Add a new comment</a>
+        <div>
+            <% movie.comments.forEach(function(comment) { %>
+                <p><%= comment.author %> - <%= comment.text %></p>
+            <% }) %>
+        </div>
     </div>
 </div>
 
