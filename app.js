@@ -53,11 +53,11 @@ app.get("/movies/:id", function(req, res) {
  * Comments' routes 
  ********************/
  
-app.get("/movies/:id/comments/new", function(req, res) {
+app.get("/movies/:id/comments/new", isLogged, function(req, res) {
     res.render("new", {id: req.params.id});
 });
 
-app.post("/movies/:id/comments", function(req, res) {
+app.post("/movies/:id/comments", isLogged, function(req, res) {
     Movie.findOne({"imdbID": req.params.id}, "imdbID", function(err, movie) {
         if (err) {
             console.log(err); // to do: improve
@@ -130,6 +130,13 @@ app.post("/login",
          function(req, res) {
 });
 
+/* Logout */
+
+app.get("/logout", function(req, res) {
+    req.logout();
+    res.redirect("/");
+});
+
 /****************
  * Start server 
  ****************/
@@ -179,4 +186,11 @@ function createMovieInDatabase(id) {
             console.log("movie saved to database");
         }
     });
+}
+
+function isLogged(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect("/login");
 }
