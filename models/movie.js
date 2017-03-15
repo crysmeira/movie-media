@@ -1,6 +1,6 @@
 var mongoose = require("mongoose");
 
-var movieSchema = mongoose.Schema({
+var movieSchema = new mongoose.Schema({
     imdbID: String,
     comments: [
             {

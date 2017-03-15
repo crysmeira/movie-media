@@ -72,3 +72,13 @@ a:hover {
 .center {
     text-align: center;
 }
+
+.comment {
+    background-color: #f0f0f0;
+    padding: 10px 15px;
+    margin: 10px 0;
+}
+
+.author {
+    font-weight: bold;
+}

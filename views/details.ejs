@@ -28,7 +28,10 @@
         <a class="btn btn-default" href="/movies/<%= info["imdbID"] %>/comments/new">Add a new comment</a>
         <div>
             <% movie.comments.forEach(function(comment) { %>
-                <p><%= comment.author %> - <%= comment.text %></p>
+                <div class="comment">
+                    <p class="author"><%= comment.author %>:</p>
+                    <p><%= comment.text %></p>
+                </div>
             <% }) %>
         </div>
     </div>
