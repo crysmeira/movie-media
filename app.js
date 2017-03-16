@@ -35,12 +35,20 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+// Run for every route
+app.use(function(req, res, next) {
+    res.locals.currUser = req.user;
+    next();
+});
+
+
 app.get("/", function(req, res) {
+    console.log(req.user);
     res.render("index");
 });
 
 app.post("/", function(req, res) {
-    res.render("movies", {s: req.body.search, page: req.body.page});
+    res.render("movies", {s: req.body.search});
 });
 
 // Show
@@ -135,6 +143,14 @@ app.post("/login",
 app.get("/logout", function(req, res) {
     req.logout();
     res.redirect("/");
+});
+
+/********************
+ * Profile's routes 
+ ********************/
+ 
+app.get("/profile", function(req, res) {
+    res.render("profile");
 });
 
 /****************
