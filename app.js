@@ -56,7 +56,6 @@ app.get("/movies/:id", function(req, res) {
     getDetailedInfo(req.params.id, res);
 });
 
-
 /********************
  * Comments' routes 
  ********************/
@@ -84,7 +83,6 @@ app.post("/movies/:id/comments", isLogged, function(req, res) {
                         if (err) {
                             console.log(err);
                         } else {
-                            console.log("movie: " + m);
                             // add comment to this movie
                             m.comments.push(comment);
                             m.save();
@@ -109,7 +107,16 @@ app.get("/register", function(req, res) {
 });
 
 app.post("/register", function(req, res) {
-    var user = new User({username: req.body.username});
+    var user = new User(
+                    {
+                        username: req.body.username,
+                        age: req.body.age,
+                        email: req.body.email,
+                        country: req.body.country,
+                        about: req.body.about,
+                        watched: [],
+                        wantToWatch: []
+                    });
     User.register(user, req.body.password, function(err, u) {
         if (err) {
             console.log(err); // to do: change
@@ -150,7 +157,75 @@ app.get("/logout", function(req, res) {
  ********************/
  
 app.get("/profile", function(req, res) {
-    res.render("profile");
+    User.findById(req.user._id).populate("watched").populate("wantToWatch").exec(function(err, user) {
+        if (err) {
+            console.log(err); // to do: change
+        } else {
+            res.render("profile", {user: user});
+        }
+    });
+});
+
+app.post("/:username/:id/watched", isLogged, function(req, res) {
+    Movie.findOne({"imdbID": req.params.id}, function(err, movie) {
+        if (err) {
+            console.log(err); // to do: change
+        } else {
+            // check if this movie is in the database
+            if (!movie) {
+                createMovieInDatabase(req.params.id);
+                console.log("saved");
+            }
+            User.findOne({"username": req.params.username}, function(err, user) {
+                if (err) {
+                    console.log(err); // to do: change
+                } else {
+                    if (!user) {
+                        console.log(err); // to do: change
+                    } else {
+                        Movie.findOne({"imdbID": req.params.id}, function(err, movie) {
+                            if (err) {
+                                console.log(err); // to do: change
+                            } else {
+                                user.watched.push(movie);
+                                user.save();
+                                console.log("movie watched added");
+                                res.redirect("back");
+                            }
+                        });
+                    }
+                }
+            });
+        }
+    });
+});
+
+app.post("/:username/:id/wantToWatch", isLogged, function(req, res) {
+    Movie.findOne({"imdbID": req.params.id}, function(err, movie) {
+        if (err) {
+            console.log(err); // to do: change
+        } else {
+            if (!movie) {
+                console.log(err); // to do: change
+            }
+            Movie.findOne({"imdbID": req.params.id}, function(err, movie) {
+                if (err) {
+                    console.log(err); // to do: change
+                } else {
+                    User.findOne({"username": req.params.username}, function(err, user) {
+                        if (err) {
+                            console.log(err); // to do: change
+                        } else {
+                            user.wantToWatch.push(movie);
+                            user.save();
+                            console.log("movie want to watch added");
+                            res.redirect("back");
+                        }
+                    });
+                }
+            });
+        }
+    });
 });
 
 /****************
@@ -193,15 +268,24 @@ function getDetailedInfo(id, res) {
 }
 
 function createMovieInDatabase(id) {
-    var data = {imdbID: id, comments: []};
-    Movie.create(data, function(err, movie) {
-        if (err) {
-            console.log(err); // to do: change
+    // get movie title
+    request("http://www.omdbapi.com/?i=" + id, function(err, response, body) {  
+        if (!err && response.statusCode == 200) {
+            var info = JSON.parse(body);
+            var data = {imdbID: id, title: info["Title"], comments: []};
+            Movie.create(data, function(err, movie) {
+                if (err) {
+                    console.log(err); // to do: change
+                } else {
+                    movie.save();
+                    console.log("movie saved to database");
+                }
+            });
         } else {
-            movie.save();
-            console.log("movie saved to database");
+            console.log(err); // to do: change
         }
     });
+    
 }
 
 function isLogged(req, res, next) {

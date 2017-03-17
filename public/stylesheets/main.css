@@ -82,3 +82,11 @@ a:hover {
 .author {
     font-weight: bold;
 }
+
+.btn-watched {
+    width: 100%;
+}
+
+.btn-wantToWatch {
+    width: 100%;
+}

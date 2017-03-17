@@ -1,23 +1,31 @@
 var mongoose = require("mongoose");
 var Movie = require("./models/movie");
 var Comment = require("./models/comment");
+var User = require("./models/user");
 
 var data = [
     {
-        imdbID: "tt2294629"
+        imdbID: "tt2294629",
+        title: "Frozen"
     },
     {
-        imdbID: "tt4007502"
+        imdbID: "tt4007502",
+        title: "Frozen Fever"
     },
     {
-        imdbID: "tt2294629"
-    },
-    {
-        imdbID: "tt0388318"
+        imdbID: "tt0388318",
+        title: "Frozen Land"
     }
 ];
 
 function seedDB() {
+    // remove all movies
+    /*User.remove({}, function(err) {
+        if (err) {
+            console.log("problem removing");
+        }
+        console.log("removed users!");
+    });
     // remove all movies
     Movie.remove({}, function(err) {
         if (err) {
@@ -46,7 +54,7 @@ function seedDB() {
                 }
             });
         });
-    });
+    });*/
 }
 
 module.exports = seedDB;

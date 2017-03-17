@@ -1,13 +1,21 @@
 <% include partials/header %>
 
 <div class="container">
-    <h1 class="center"><%= info["Title"] %> - (<%= info["Year"] %>)</h1>
+    <h1 class="center"><%= info["Title"] %> (<%= info["Year"] %>)</h1>
     <div class="row container-info">
         <div class="col-sm-4 col-xs-12 center info">
             <% if (info["Poster"]) { %>
                 <img class="img-responsive" src="<%= info["Poster"] %>" alt="<%= info["Title"] %> - Poster">
             <% } else { %>
                 <img class="img-responsive" src="/images/no_image_available.png" alt="<%= info["Title"] %> - Poster">
+            <% } %>
+            <% if (currUser) { %>
+                <form action="/<%= currUser.username %>/<%= info["imdbID"] %>/watched" method="POST">
+                    <input type="submit" class="btn btn-default btn-watched" value="Watched">
+                </form>
+                <form action="/<%= currUser.username %>/<%= info["imdbID"] %>/wantToWatch" method="POST">
+                    <input type="submit" class="btn btn-default btn-wantToWatch" value="Want to watch">
+                </form>
             <% } %>
         </div>
         <div class="col-sm-8 col-xs-12 info">
@@ -25,14 +33,16 @@
 <div class="container">
     <div class="container-info">
         <h1>Comments</h1>
-        <a class="btn btn-default" href="/movies/<%= info["imdbID"] %>/comments/new">Add a new comment</a>
+        <% if (currUser) { %>
+            <a class="btn btn-default" href="/movies/<%= info["imdbID"] %>/comments/new">Add a new comment</a>
+        <% } %>
         <div>
             <% movie.comments.forEach(function(comment) { %>
                 <div class="comment">
                     <p class="author"><%= comment.author %>:</p>
                     <p><%= comment.text %></p>
                 </div>
-            <% }) %>
+            <% }); %>
         </div>
     </div>
 </div>
