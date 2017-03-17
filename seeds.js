@@ -26,6 +26,13 @@ function seedDB() {
         }
         console.log("removed users!");
     });
+    // remove all comments
+    Comment.remove({}, function(err) {
+        if (err) {
+            console.log("problem removing");
+        }
+        console.log("removed comments!");
+    });
     // remove all movies
     Movie.remove({}, function(err) {
         if (err) {
@@ -39,16 +46,24 @@ function seedDB() {
                     console.log("err");
                 } else {
                     console.log("adding movie");
-                    Comment.create({
-                        text: "First Comment",
-                        author: "Author 1",
-                    }, function(err, comment) {
+                    User.create({
+                        username: "Author 1",
+                    }, function(err, user) {
                         if (err) {
-                            console.log("err");
+                            console.log(err);
                         } else {
-                            movie.comments.push(comment);
-                            movie.save();
-                            console.log("comment added to movie");
+                            Comment.create({
+                                text: "First Comment",
+                                author: user,
+                            }, function(err, comment) {
+                                if (err) {
+                                    console.log("err");
+                                } else {
+                                    movie.comments.push(comment);
+                                    movie.save();
+                                    console.log("comment added to movie");
+                                }
+                            });
                         }
                     });
                 }

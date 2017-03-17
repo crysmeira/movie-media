@@ -10,12 +10,6 @@ var UserSchema = new mongoose.Schema({
     email: String,
     country: String,
     about: String,
-    comments: [
-            {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "Comment"
-            }
-        ],
     wantToWatch: [
             {
                 type: mongoose.Schema.Types.ObjectId,

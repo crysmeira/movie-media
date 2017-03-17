@@ -90,3 +90,41 @@ a:hover {
 .btn-wantToWatch {
     width: 100%;
 }
+
+.profile-watched, .profile-wantToWatch, .profile-left {
+    background-color: #f0f0f0;
+    padding: 10px 25px;
+}
+
+.profile-left {
+    margin-top: 20px;
+    height: 620px;
+}
+
+.profile-wantToWatch, .profile-watched {
+    margin-top: 20px;
+    height: 300px;
+}
+
+.list-movies {
+    margin-top: 15px;
+    overflow: auto;
+    height: 200px;
+}
+
+.block {
+    display: block;
+}
+
+.comment-textarea {
+    width:100%;    
+}
+
+.comment-btn {
+    width: 20%;
+    margin-top: 5px;
+}
+
+.align-right {
+    text-align: right;
+}

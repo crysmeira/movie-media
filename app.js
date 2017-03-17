@@ -1,14 +1,15 @@
-var express     = require("express"),
-    app         = express(),
-    request     = require("request"),
-    bodyParser  = require("body-parser"),
-    mongoose    = require("mongoose"),
-    passport    = require("passport"),
-    LocalStrategy = require("passport-local"),
-    Movie       = require("./models/movie"),
-    Comment     = require("./models/comment"),
-    User        = require("./models/user"),
-    seedDB      = require("./seeds");
+var express         = require("express"),
+    app             = express(),
+    request         = require("request"),
+    bodyParser      = require("body-parser"),
+    mongoose        = require("mongoose"),
+    passport        = require("passport"),
+    LocalStrategy   = require("passport-local"),
+    methodOverride  = require("method-override"),
+    Movie           = require("./models/movie"),
+    Comment         = require("./models/comment"),
+    User            = require("./models/user"),
+    seedDB          = require("./seeds");
     
     
 seedDB();
@@ -21,6 +22,7 @@ app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(methodOverride("_method"));
 
 // Configuration (passport)
 app.use(require("express-session")({
@@ -59,11 +61,13 @@ app.get("/movies/:id", function(req, res) {
 /********************
  * Comments' routes 
  ********************/
- 
+
+// New comment
 app.get("/movies/:id/comments/new", isLogged, function(req, res) {
     res.render("new", {id: req.params.id});
 });
 
+// Create comment
 app.post("/movies/:id/comments", isLogged, function(req, res) {
     Movie.findOne({"imdbID": req.params.id}, "imdbID", function(err, movie) {
         if (err) {
@@ -83,6 +87,10 @@ app.post("/movies/:id/comments", isLogged, function(req, res) {
                         if (err) {
                             console.log(err);
                         } else {
+                            // add comment to database
+                            comment.author.id = req.user._id;
+                            comment.author.username = req.user.username;
+                            comment.save();
                             // add comment to this movie
                             m.comments.push(comment);
                             m.save();
@@ -92,6 +100,30 @@ app.post("/movies/:id/comments", isLogged, function(req, res) {
                     });
                 }
             });
+        }
+    });
+});
+
+// Update comment
+app.put("/movies/:id/comments/:comment_id", function(req, res) {
+    //res.send("editted comment");
+    Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, function(err, comment) {
+        if (err) {
+            console.log(err); // to do: change
+            res.redirect("back");
+        } else {
+            res.redirect("/movies/" + req.params.id);
+        }
+    });
+});
+
+// Delete comment
+app.delete("/movies/:id/comments/:comment_id", function(req, res) {
+    Comment.findByIdAndRemove(req.params.comment_id, function(err) {
+        if (err) {
+            console.log(err); // to do: change
+        } else {
+            res.redirect("/movies/" + req.params.id);
         }
     });
 });
@@ -176,26 +208,7 @@ app.post("/:username/:id/watched", isLogged, function(req, res) {
                 createMovieInDatabase(req.params.id);
                 console.log("saved");
             }
-            User.findOne({"username": req.params.username}, function(err, user) {
-                if (err) {
-                    console.log(err); // to do: change
-                } else {
-                    if (!user) {
-                        console.log(err); // to do: change
-                    } else {
-                        Movie.findOne({"imdbID": req.params.id}, function(err, movie) {
-                            if (err) {
-                                console.log(err); // to do: change
-                            } else {
-                                user.watched.push(movie);
-                                user.save();
-                                console.log("movie watched added");
-                                res.redirect("back");
-                            }
-                        });
-                    }
-                }
-            });
+            addMovieToUser(req.params.username, req.params.id, true, res);
         }
     });
 });
@@ -208,22 +221,7 @@ app.post("/:username/:id/wantToWatch", isLogged, function(req, res) {
             if (!movie) {
                 console.log(err); // to do: change
             }
-            Movie.findOne({"imdbID": req.params.id}, function(err, movie) {
-                if (err) {
-                    console.log(err); // to do: change
-                } else {
-                    User.findOne({"username": req.params.username}, function(err, user) {
-                        if (err) {
-                            console.log(err); // to do: change
-                        } else {
-                            user.wantToWatch.push(movie);
-                            user.save();
-                            console.log("movie want to watch added");
-                            res.redirect("back");
-                        }
-                    });
-                }
-            });
+            addMovieToUser(req.params.username, req.params.id, false, res);
         }
     });
 });
@@ -293,4 +291,31 @@ function isLogged(req, res, next) {
         return next();
     }
     res.redirect("/login");
+}
+
+function addMovieToUser(userID, movieID, watched, res) {
+    User.findOne({"username": userID}, function(err, user) {
+        if (err) {
+            console.log(err); // to do: change
+        } else {
+            if (!user) {
+                res.redirect("/login");
+            } else {
+                Movie.findOne({"imdbID": movieID}, function(err, movie) {
+                    if (err) {
+                        console.log(err); // to do: change
+                    } else {
+                        if (watched) {
+                            user.watched.push(movie);
+                        } else {
+                            user.wantToWatch.push(movie);
+                        }
+                        user.save();
+                        console.log("movie watched added");
+                        res.redirect("back");
+                    }
+                });
+            }
+        }
+    });
 }

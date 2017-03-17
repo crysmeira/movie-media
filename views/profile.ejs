@@ -3,23 +3,29 @@
 <div class="container">
     <div class="row">
         <div class="col-md-4">
-            <h1><%= user.username %></h1>
-            <h4><%= user.age %></h4>
-            <h4><%= user.country %></h4>
-            <h4><%= user.about %></h4>
+            <div class="profile-left">
+                <h1><%= user.username %></h1>
+                <h4><%= user.age %></h4>
+                <h4><%= user.country %></h4>
+                <h4><%= user.about %></h4>
+            </div>
         </div>
         <div class="col-md-8">
-            <div>
+            <div class="profile-watched">
                 <h1>Watched</h1>
-                <% user.watched.forEach(function(movie) { %>
-                    <p><a href="/movies/<%= movie.imdbID %>"><%= movie.title %></a></p>
-                <% }); %>
+                <div class="list-movies">
+                    <% user.watched.forEach(function(movie) { %>
+                        <p><a href="/movies/<%= movie.imdbID %>"><%= movie.title %></a></p>
+                    <% }); %>
+                </div>
             </div>
-            <div>
+            <div class="profile-wantToWatch">
                 <h1>Want to watch</h1>
-                <% user.wantToWatch.forEach(function(movie) { %>
-                    <p><a href="/movies/<%= movie.imdbID %>"><%= movie.title %></a></p>
-                <% }); %>
+                <div class="list-movies">
+                    <% user.wantToWatch.forEach(function(movie) { %>
+                        <p><a href="/movies/<%= movie.imdbID %>"><%= movie.title %></a></p>
+                    <% }); %>
+                </div>
             </div>
         </div>
     </div>

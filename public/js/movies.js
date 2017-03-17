@@ -7,7 +7,7 @@ function loadMore(seach, page) {
     $.getJSON("https://www.omdbapi.com/?s="+search+"&page="+page, function(data) {
         var divInfo = $(".additional-info")[0];
         var element = document.createElement("div");
-        if (!data["Search"]) {
+        if (!data["Search"] && page == 1) {
             element.innerHTML = "<h3>No results were found</h3>";
             $(divInfo).append(element);
             return;

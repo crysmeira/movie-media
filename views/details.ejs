@@ -4,7 +4,7 @@
     <h1 class="center"><%= info["Title"] %> (<%= info["Year"] %>)</h1>
     <div class="row container-info">
         <div class="col-sm-4 col-xs-12 center info">
-            <% if (info["Poster"]) { %>
+            <% if (info["Poster"] && info["Poster"] != "N/A") { %>
                 <img class="img-responsive" src="<%= info["Poster"] %>" alt="<%= info["Title"] %> - Poster">
             <% } else { %>
                 <img class="img-responsive" src="/images/no_image_available.png" alt="<%= info["Title"] %> - Poster">
@@ -33,20 +33,62 @@
 <div class="container">
     <div class="container-info">
         <h1>Comments</h1>
-        <% if (currUser) { %>
-            <a class="btn btn-default" href="/movies/<%= info["imdbID"] %>/comments/new">Add a new comment</a>
-        <% } %>
         <div>
-            <% movie.comments.forEach(function(comment) { %>
-                <div class="comment">
-                    <p class="author"><%= comment.author %>:</p>
-                    <p><%= comment.text %></p>
-                </div>
-            <% }); %>
+            <% if (!movie) { %>
+                <p>One error happened trying to load the comments</p>
+            <% } else { %>
+                <% movie.comments.forEach(function(comment) { %>
+                    <div class="comment">
+                        <p class="author"><%= comment.author.username %>:</p>
+                        <p><%= comment.text %></p>
+                        <input class="btn btn-default" type="button" onclick="ShowModal('<%= comment.text %>', '<%= info["imdbID"] %>', '<%= comment._id %>')" value="Edit">
+                        <form action="/movies/<%= info["imdbID"] %>/comments/<%= comment._id %>?_method=DELETE" method="POST"> 
+                            <input type="submit" value="Delete" class="btn btn-default">
+                        </form>
+                    </div>
+                <% }); %>
+                <% if (currUser) { %>
+                    <div class="comment-form">
+                        <form action="/movies/<%= info["imdbID"] %>/comments" method="POST">
+                            <textarea name="comment[text]" placeholder="Enter the comment" class="block comment-textarea" rows="5"></textarea>
+                            <div class="align-right">
+                                <input type="submit" class="btn btn-success comment-btn" value="Send">
+                            </div>
+                        </form>
+                    </div>
+                <% } %>
+            <% } %>
         </div>
     </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="comment-md" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Edit comment</h4>
+      </div>
+      <div class="modal-body">
+        <form id="comment-form" action="/movies/" method="POST">
+            <textarea id="textarea-comment" name="comment[text]" class="block comment-textarea" rows="5"></textarea>
+            <div class="align-right">
+                <input type="submit" class="btn btn-success comment-btn" value="Edit">
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+<script>
+    function ShowModal(oldComment, movieID, commentID) {
+        document.getElementById("textarea-comment").value = oldComment;
+        document.getElementById("comment-form").action = "/movies/" + movieID + "/comments/" + commentID + "?_method=PUT";
+        $("#comment-md").modal("show");
+    }
+</script>
 
 <% include partials/footer %>
