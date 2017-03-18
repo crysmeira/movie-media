@@ -106,7 +106,6 @@ app.post("/movies/:id/comments", isLogged, function(req, res) {
 
 // Update comment
 app.put("/movies/:id/comments/:comment_id", function(req, res) {
-    //res.send("editted comment");
     Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, function(err, comment) {
         if (err) {
             console.log(err); // to do: change
@@ -198,6 +197,23 @@ app.get("/profile", function(req, res) {
     });
 });
 
+// Edit user information
+app.get("/profile/:id/edit", function(req, res) {
+    res.render("edit_info");
+});
+    
+// Update user information
+app.put("/profile/:id", function(req, res) {
+    User.findByIdAndUpdate(req.params.id, req.body.user, function(err, user) {
+       if (err) {
+           console.log(err);
+           res.redirect("back");
+       } else {
+           res.redirect("/profile");
+       }
+    });
+});
+
 app.post("/:username/:id/watched", isLogged, function(req, res) {
     Movie.findOne({"imdbID": req.params.id}, function(err, movie) {
         if (err) {
@@ -219,6 +235,7 @@ app.delete("/:username/:id/watched", isLogged, function(req, res) {
             console.log(err); // to do: change
         } else {
             findMovieAndRemove(req.params.id, user_watched, "watched", res);
+            res.redirect("/profile");
         }
     });
 });
@@ -236,12 +253,24 @@ app.post("/:username/:id/wantToWatch", isLogged, function(req, res) {
     });
 });
 
+app.put("/:username/:id/wantToWatch", function(req, res) {
+    User.findOne({"username": req.params.username}, "wantToWatch", function(err, user_want) {
+        if (err) {
+            console.log(err); // to do: change
+        } else {
+            findMovieAndRemove(req.params.id, user_want, "wantToWatch", res);
+            addMovieToUser(req.params.username, req.params.id, true, res);
+        }
+    });
+});
+
 app.delete("/:username/:id/wantToWatch", isLogged, function(req, res) {
     User.findOne({"username": req.params.username}, "wantToWatch", function(err, user_want) {
         if (err) {
             console.log(err); // to do: change
         } else {
             findMovieAndRemove(req.params.id, user_want, "wantToWatch", res);
+            res.redirect("/profile");
         }
     });
 });
@@ -363,7 +392,7 @@ function addMovieToUser(username, movieID, watched, res) {
                         }
                         user.save();
                         console.log("movie watched added");
-                        res.redirect("back");
+                        res.redirect("/profile");
                     }
                 });
             }
@@ -384,7 +413,6 @@ function findMovieAndRemove(movieID, user, field, res) {
                     user[field].splice(i, 1);
                     user.save();
                     console.log("removed from want to watch");
-                    res.redirect("/profile");
                     return;
                 }
             }

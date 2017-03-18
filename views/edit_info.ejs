@@ -1,0 +1,16 @@
+<% include partials/header %>
+
+<div class="container">
+    <h1 class="center">Edit Information</h1>
+    <form action="/profile/<%= currUser._id %>?_method=PUT" method="POST">
+        <input type="number" name="user[age]" value="<%= currUser.age %>">
+        <input type="email" name="user[email]" value="<%= currUser.email %>">
+        <input type="text" name="user[country]" value="<%= currUser.country %>">
+        <textarea name="user[about]" value="<%= currUser.about %>" rows="4" cols="50"></textarea>
+        <input type="submit" value="Edit">
+    </form>
+</div>
+
+<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+
+<% include partials/footer %>
