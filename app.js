@@ -208,7 +208,17 @@ app.post("/:username/:id/watched", isLogged, function(req, res) {
                 createMovieInDatabase(req.params.id);
                 console.log("saved");
             }
-            addMovieToUser(req.params.username, req.params.id, true, res);
+            addIfNotInAList(req.params.username, req.params.id, true, res);
+        }
+    });
+});
+
+app.delete("/:username/:id/watched", isLogged, function(req, res) {
+    User.findOne({"username": req.params.username}, "watched", function(err, user_watched) {
+        if (err) {
+            console.log(err); // to do: change
+        } else {
+            findMovieAndRemove(req.params.id, user_watched, "watched", res);
         }
     });
 });
@@ -221,7 +231,17 @@ app.post("/:username/:id/wantToWatch", isLogged, function(req, res) {
             if (!movie) {
                 console.log(err); // to do: change
             }
-            addMovieToUser(req.params.username, req.params.id, false, res);
+            addIfNotInAList(req.params.username, req.params.id, false, res);
+        }
+    });
+});
+
+app.delete("/:username/:id/wantToWatch", isLogged, function(req, res) {
+    User.findOne({"username": req.params.username}, "wantToWatch", function(err, user_want) {
+        if (err) {
+            console.log(err); // to do: change
+        } else {
+            findMovieAndRemove(req.params.id, user_want, "wantToWatch", res);
         }
     });
 });
@@ -293,8 +313,39 @@ function isLogged(req, res, next) {
     res.redirect("/login");
 }
 
-function addMovieToUser(userID, movieID, watched, res) {
-    User.findOne({"username": userID}, function(err, user) {
+function addIfNotInAList(username, movieID, field, res) {
+    User.findOne({"username": username}, "watched wantToWatch", function(err, user) {
+        if (err) {
+            console.log(err); // to do: change
+        } else {
+            Movie.findOne({"imdbID": movieID}, function(err, movie) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    for (var i = 0; i < user["watched"].length; i++) {
+                        if (JSON.stringify(user["watched"][i]) === JSON.stringify(movie["_id"])) {
+                            console.log("repeated: /movies/" + movieID);
+                            res.redirect("/movies/" + movieID);
+                            return;
+                        }
+                    }
+                    for (var i = 0; i < user["wantToWatch"].length; i++) {
+                        if (JSON.stringify(user["wantToWatch"][i]) === JSON.stringify(movie["_id"])) {
+                            console.log("repeated: /movies/" + movieID);
+                            res.redirect("/movies/" + movieID);
+                            return;
+                        }
+                    }
+                    console.log("new movie");
+                    addMovieToUser(username, movieID, field, res);
+                }
+            });
+        }
+    });
+}
+
+function addMovieToUser(username, movieID, watched, res) {
+    User.findOne({"username": username}, function(err, user) {
         if (err) {
             console.log(err); // to do: change
         } else {
@@ -315,6 +366,27 @@ function addMovieToUser(userID, movieID, watched, res) {
                         res.redirect("back");
                     }
                 });
+            }
+        }
+    });
+}
+
+function findMovieAndRemove(movieID, user, field, res) {
+    Movie.findOne({"imdbID": movieID}, "_id", function(err, movie) {
+        if (err) {
+            console.log(err);
+        } else {
+            if (!movie) {
+                res.redirect("back");    
+            }
+            for (var i = 0; i < user[field].length; i++) {
+                if (JSON.stringify(user[field][i]) === JSON.stringify(movie["_id"])) {
+                    user[field].splice(i, 1);
+                    user.save();
+                    console.log("removed from want to watch");
+                    res.redirect("/profile");
+                    return;
+                }
             }
         }
     });
