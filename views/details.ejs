@@ -35,16 +35,18 @@
         <h1>Comments</h1>
         <div>
             <% if (!movie) { %>
-                <p>One error happened trying to load the comments</p>
+                <p>Sorry, one error happened trying to load the comments. Try to refresh the page.</p>
             <% } else { %>
                 <% movie.comments.forEach(function(comment) { %>
                     <div class="comment">
-                        <p class="author"><%= comment.author.username %>:</p>
+                        <p class="author"><a href="/profile/<%= comment.author.username %>"><%= comment.author.username %>:</a></p>
                         <p><%= comment.text %></p>
-                        <input class="btn btn-default" type="button" onclick="ShowModal('<%= comment.text %>', '<%= info["imdbID"] %>', '<%= comment._id %>')" value="Edit">
-                        <form action="/movies/<%= info["imdbID"] %>/comments/<%= comment._id %>?_method=DELETE" method="POST"> 
-                            <input type="submit" value="Delete" class="btn btn-default">
-                        </form>
+                        <% if (currUser && comment.author.id.equals(currUser._id)) { %>
+                            <input class="btn btn-default" type="button" onclick="ShowModal('<%= comment.text %>', '<%= info["imdbID"] %>', '<%= comment._id %>')" value="Edit">
+                            <form action="/movies/<%= info["imdbID"] %>/comments/<%= comment._id %>?_method=DELETE" method="POST"> 
+                                <input type="submit" value="Delete" class="btn btn-default">
+                            </form>
+                        <% } %>
                     </div>
                 <% }); %>
                 <% if (currUser) { %>

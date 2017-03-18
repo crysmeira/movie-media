@@ -8,7 +8,9 @@
                 <h4><%= user.age %></h4>
                 <h4><%= user.country %></h4>
                 <h4><%= user.about %></h4>
-                <a class="btn btn-default" href="/profile/<%= user._id %>/edit">Edit</a>
+                <% if (currUser && user._id.equals(currUser._id)) { %>
+                    <a class="btn btn-default" href="/profile/<%= user._id %>/edit">Edit</a>
+                <% } %>
             </div>
         </div>
         <div class="col-md-8">
@@ -18,9 +20,11 @@
                     <% user.watched.forEach(function(movie) { %>
                         <p>
                             <a href="/movies/<%= movie.imdbID %>"><%= movie.title %></a>
-                            <form action="/<%= user.username %>/<%= movie.imdbID %>/watched?_method=DELETE" method="POST">
-                                <input type="submit" class="btn btn-danger" value="Remove">
-                            </form>
+                            <% if (currUser && user._id.equals(currUser._id)) { %>
+                                <form action="/<%= user.username %>/<%= movie.imdbID %>/watched?_method=DELETE" method="POST">
+                                    <input type="submit" class="btn btn-danger" value="Remove">
+                                </form>
+                            <% } %>
                         </p>
                     <% }); %>
                 </div>
@@ -31,12 +35,14 @@
                     <% user.wantToWatch.forEach(function(movie) { %>
                         <p>
                             <a href="/movies/<%= movie.imdbID %>"><%= movie.title %></a>
-                            <form action="/<%= user.username %>/<%= movie.imdbID %>/wantToWatch?_method=PUT" method="POST">
-                                <input type="submit" class="btn btn-danger" value="Move to Watched">
-                            </form>
-                            <form action="/<%= user.username %>/<%= movie.imdbID %>/wantToWatch?_method=DELETE" method="POST">
-                                <input type="submit" class="btn btn-danger" value="Remove">
-                            </form>
+                            <% if (currUser && user._id.equals(currUser._id)) { %>
+                                <form action="/<%= user.username %>/<%= movie.imdbID %>/wantToWatch?_method=PUT" method="POST">
+                                    <input type="submit" class="btn btn-danger" value="Move to Watched">
+                                </form>
+                                <form action="/<%= user.username %>/<%= movie.imdbID %>/wantToWatch?_method=DELETE" method="POST">
+                                    <input type="submit" class="btn btn-danger" value="Remove">
+                                </form>
+                            <% } %>
                         </p>
                     <% }); %>
                 </div>
