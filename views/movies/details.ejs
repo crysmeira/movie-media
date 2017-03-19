@@ -1,4 +1,4 @@
-<% include partials/header %>
+<% include ../partials/header %>
 
 <div class="container">
     <h1 class="center"><%= info["Title"] %> (<%= info["Year"] %>)</h1>
@@ -37,7 +37,7 @@
             <% if (!movie) { %>
                 <p>Sorry, one error happened trying to load the comments. Try to refresh the page.</p>
             <% } else { %>
-                <% movie.comments.forEach(function(comment) { %>
+                <% movie.comments.forEach(function(comment) { %>
                     <div class="comment">
                         <p class="author"><a href="/profile/<%= comment.author.username %>"><%= comment.author.username %>:</a></p>
                         <p><%= comment.text %></p>
@@ -93,4 +93,4 @@
     }
 </script>
 
-<% include partials/footer %>
+<% include ../partials/footer %>

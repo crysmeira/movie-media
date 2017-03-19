@@ -11,10 +11,19 @@
     <body>
         <div id="search-header">
             <h1>Search your movie</h1>
-            <form action="/" method="POST">
-                <input type="text" name="search" placeholder="Enter your search here...">
-                <input type="submit" class="btn btn-default" value="Search">
+            <form id="form-search" action="/movies" method="POST">
+                <input id="input-search" type="text" name="search" placeholder="Enter your search here...">
+                <input id="btn-search" type="submit" class="btn btn-default" value="Search">
             </form>
         </div>
+        
+<script>
+    document.getElementById("form-search").addEventListener("onsubmit", function() {
+        console.log("ok");
+        var search = document.getElementById("input-search").value();
+        document.getElementById("form-search").setAttribute("action", "/" + search);
+        console.log(this.getAttribute("action"));
+    });
+</script>
 
 <% include partials/footer %>

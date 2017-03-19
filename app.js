@@ -43,17 +43,26 @@ app.use(function(req, res, next) {
     next();
 });
 
-
 app.get("/", function(req, res) {
-    console.log(req.user);
+    res.redirect("/movies");
+    
+});
+
+/*******************************************************************************
+ * 
+ * Movies' routes 
+ * 
+ ******************************************************************************/
+ 
+app.get("/movies", function(req, res) {
     res.render("index");
 });
-
-app.post("/", function(req, res) {
-    res.render("movies", {s: req.body.search});
+ 
+app.post("/movies", function(req, res) {
+    res.render("movies/movies", {s: req.body.search});
 });
 
-// Show
+// Show a specific movie
 app.get("/movies/:id", function(req, res) {
     getDetailedInfo(req.params.id, res);
 });
@@ -66,7 +75,7 @@ app.get("/movies/:id", function(req, res) {
 
 // New comment
 app.get("/movies/:id/comments/new", isLogged, function(req, res) {
-    res.render("new", {id: req.params.id});
+    res.render("cooments/new", {id: req.params.id});
 });
 
 // Create comment
@@ -148,6 +157,8 @@ app.get("/register", function(req, res) {
 app.post("/register", function(req, res) {
     var user = new User(
                     {
+                        first_name: req.body.first_name,
+                        last_name: req.body.last_name,
                         username: req.body.username,
                         age: req.body.age,
                         email: req.body.email,
@@ -162,7 +173,7 @@ app.post("/register", function(req, res) {
             res.redirect("/register");
         } else {
             passport.authenticate("local")(req, res, function() {
-                res.redirect("/");
+                res.redirect("/movies");
             });
         }
     });
@@ -203,14 +214,14 @@ app.get("/profile/:username", function(req, res) {
         if (err) {
             console.log(err); // to do: change
         } else {
-            res.render("profile", {user: user});
+            res.render("profile/profile", {user: user});
         }
     });
 });
 
 // Edit user information
 app.get("/profile/:id/edit", function(req, res) {
-    res.render("edit_info");
+    res.render("profile/edit_info");
 });
     
 // Update user information
@@ -247,7 +258,7 @@ app.delete("/:username/:id/watched", isLogged, function(req, res) {
             console.log(err); // to do: change
         } else {
             findMovieAndRemove(req.params.id, user_watched, "watched", res);
-            res.redirect("/profile");
+            res.redirect("/profile/" + req.params.username);
         }
     });
 });
@@ -284,7 +295,7 @@ app.delete("/:username/:id/wantToWatch", isLogged, function(req, res) {
             console.log(err); // to do: change
         } else {
             findMovieAndRemove(req.params.id, user_want, "wantToWatch", res);
-            res.redirect("/profile");
+            res.redirect("/profile/" + req.params.username);
         }
     });
 });
@@ -366,7 +377,7 @@ function getDetailedInfo(id, res) {
                             console.log(err); // to do: change
                         }
                         console.log(movieWithComments);
-                        res.render("details", {info : JSON.parse(body), 
+                        res.render("movies/details", {info : JSON.parse(body), 
                                                movie: movieWithComments});
                     });
                 } else {
@@ -468,7 +479,7 @@ function addMovieToUser(username, movieID, watched, res) {
                         }
                         user.save();
                         console.log("movie watched added");
-                        res.redirect("/profile");
+                        res.redirect("/profile/" + username);
                     }
                 });
             }
@@ -476,6 +487,12 @@ function addMovieToUser(username, movieID, watched, res) {
     });
 }
 
+/*******************************************************************************
+ * 
+ * Find a movie in the database based on its imdb id and remove it from the list
+ * identified as 'field'
+ * 
+ ******************************************************************************/
 function findMovieAndRemove(movieID, user, field, res) {
     Movie.findOne({"imdbID": movieID}, "_id", function(err, movie) {
         if (err) {
@@ -489,7 +506,7 @@ function findMovieAndRemove(movieID, user, field, res) {
                                             === JSON.stringify(movie["_id"])) {
                     user[field].splice(i, 1);
                     user.save();
-                    console.log("removed from want to watch");
+                    console.log("removed from user's list " + field);
                     return;
                 }
             }

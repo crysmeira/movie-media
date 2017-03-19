@@ -1,0 +1,91 @@
+<% include ../partials/header %>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="profile-left">
+                <h1><%= user.first_name %> <%= user.last_name %></h1>
+                <h4>@<%= user.username %></h4>
+                <h4>Age: <%= user.age %></h4>
+                <h4>Country: <%= user.country %></h4>
+                <h4>About me: <%= user.about %></h4>
+                <% if (currUser && user._id.equals(currUser._id)) { %>
+                    <a class="btn btn-default" href="/profile/<%= user._id %>/edit">Edit</a>
+                <% } %>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="profile-watched">
+                <h1>Watched</h1>
+                <div class="list-movies">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <td>Movie</td>
+                                <% if (currUser && user._id.equals(currUser._id)) { %>
+                                    <td>Action</td>
+                                <% } %>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% user.watched.forEach(function(movie) { %>
+                            <tr>
+                                <td><a href="/movies/<%= movie.imdbID %>"><%= movie.title %></a></td>
+                                <% if (currUser && user._id.equals(currUser._id)) { %>
+                                    <td>
+                                        <form action="/<%= user.username %>/<%= movie.imdbID %>/watched?_method=DELETE" method="POST">
+                                            <button type="submit" class="remove-movie">
+                                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                            </button>
+                                        </form>
+                                    </td>
+                                <% } %>
+                            </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="profile-wantToWatch">
+                <h1>Want to watch</h1>
+                <div class="list-movies">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <td>Movie</td>
+                                <% if (currUser && user._id.equals(currUser._id)) { %>
+                                    <td>Action</td>
+                                <% } %>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% user.wantToWatch.forEach(function(movie) { %>
+                            <tr>
+                                <td><a href="/movies/<%= movie.imdbID %>"><%= movie.title %></a></td>
+                                <% if (currUser && user._id.equals(currUser._id)) { %>
+                                    <td>
+                                        <form id="form-watched" action="/<%= user.username %>/<%= movie.imdbID %>/wantToWatch?_method=PUT" method="POST">
+                                            <button type="submit" class="remove-movie">
+                                                <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
+                                            </button>
+                                        </form>
+                                        <form id="form-watched" action="/<%= user.username %>/<%= movie.imdbID %>/wantToWatch?_method=DELETE" method="POST">
+                                            <button type="submit" class="remove-movie">
+                                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                            </button>
+                                        </form>
+                                    </td>
+                                <% } %>
+                            </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+
+<% include ../partials/footer %>

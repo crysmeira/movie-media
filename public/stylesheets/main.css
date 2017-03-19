@@ -92,8 +92,9 @@ a:hover {
 }
 
 .profile-watched, .profile-wantToWatch, .profile-left {
-    background-color: #f0f0f0;
+    border: 2px solid #f0f0f0;
     padding: 10px 25px;
+    margin-bottom: 30px;
 }
 
 .profile-left {
@@ -127,4 +128,16 @@ a:hover {
 
 .align-right {
     text-align: right;
+}
+
+.remove-movie {
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+#form-watched {
+    display: inline;
 }
