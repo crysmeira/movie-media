@@ -14,6 +14,20 @@ a:hover {
     opacity: 0.8;
 }
 
+#form-watched {
+    display: inline;
+}
+
+#form-register {
+    width: 70%;
+    margin: 40px auto;
+}
+
+#form-login {
+    width: 40%;
+    margin: 40px auto;
+}
+
 .search {
     display: none;
 }
@@ -65,8 +79,12 @@ a:hover {
     margin: auto;
 }
 
-.field-title {
+.field-title, .author {
     font-weight: bold;
+}
+
+.align-right {
+    text-align: right;
 }
 
 .center {
@@ -79,16 +97,22 @@ a:hover {
     margin: 10px 0;
 }
 
-.author {
-    font-weight: bold;
+.comment-textarea {
+    width: 100%;    
 }
 
-.btn-watched {
+.btn-watched, .btn-wantToWatch {
     width: 100%;
 }
 
-.btn-wantToWatch {
-    width: 100%;
+.edit-btn {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.btn-center {
+    margin: 0 auto;
 }
 
 .profile-watched, .profile-wantToWatch, .profile-left {
@@ -117,10 +141,6 @@ a:hover {
     display: block;
 }
 
-.comment-textarea {
-    width: 100%;    
-}
-
 .submit-btn, .clear-btn {
     width: 20%;
     min-width: 100px;
@@ -130,46 +150,6 @@ a:hover {
 .profile, .comment-btns, .extremes {
     display: flex;
     justify-content: space-between;
-}
-
-.edit-btn {
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.align-right {
-    text-align: right;
-}
-
-.align-center {
-    text-align: center;
-}
-
-.glyphicon-btn {
-    background-color: transparent;
-    background-repeat: no-repeat;
-    border: none;
-    cursor: pointer;
-    overflow: hidden;
-}
-
-#form-watched {
-    display: inline;
-}
-
-#form-register {
-    width: 70%;
-    margin: 40px auto;
-}
-
-#form-login {
-    width: 40%;
-    margin: 40px auto;
-}
-
-.btn-center {
-    margin: 0 auto;
 }
 
 .action {
@@ -185,6 +165,14 @@ a:hover {
 .glyphicon:hover {
     color: #000000;
     cursor: pointer;
+}
+
+.glyphicon-btn {
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
 }
 
 .username-tab {

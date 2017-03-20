@@ -47,10 +47,11 @@
 <script type="text/javascript" src="/js/bootstrap.min.js"></script>
 <script>
     document.getElementById("inputAbout").value = "<%= currUser.about %>";
+    document.getElementsByClassName("limit-characters")[0].textContent = 1000 - document.getElementById("inputAbout").value.length; 
     
     // Update how many characters the user can use
-    document.getElementsByClassName("comment-textarea")[0].addEventListener("keyup", function() {
-        document.getElementsByClassName("limit-characters")[0].textContent = 1000 - document.getElementsByClassName("comment-textarea")[0].value.length; 
+    document.getElementById("inputAbout").addEventListener("keyup", function() {
+        document.getElementsByClassName("limit-characters")[0].textContent = 1000 - document.getElementById("inputAbout").value.length;
     });
 </script>
 

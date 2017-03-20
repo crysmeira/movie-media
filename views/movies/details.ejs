@@ -37,7 +37,7 @@
             <% if (!movie) { %>
                 <p>Sorry, one error happened trying to load the comments. Try to refresh the page.</p>
             <% } else { %>
-                <% movie.comments.forEach(function(comment) { %>
+                <% movie.comments.forEach(function(comment) { %>
                     <div class="comment">
                         <div class="extremes">
                             <p class="author"><a href="/profile/<%= comment.author.username %>"><%= comment.author.username %>:</a></p>
@@ -88,6 +88,9 @@
         <form id="comment-form" action="/movies/" method="POST">
             <textarea id="textarea-comment" maxlength="1000" name="comment[text]" class="block comment-textarea" rows="5"></textarea>
             <div class="align-right">
+                <p>* <span class="limit-characters-edit">1000</span> characters left</p>
+            </div>
+            <div class="align-right">
                 <input type="submit" class="btn btn-success submit-btn" value="Edit">
             </div>
         </form>
@@ -101,6 +104,7 @@
     // Show modal to edit comment
     function ShowModal(oldComment, movieID, commentID) {
         document.getElementById("textarea-comment").value = oldComment;
+        document.getElementsByClassName("limit-characters-edit")[0].textContent = 1000 - document.getElementById("textarea-comment").value.length; 
         document.getElementById("comment-form").action = "/movies/" + movieID + "/comments/" + commentID + "?_method=PUT";
         $("#comment-md").modal("show");
     }
@@ -114,6 +118,11 @@
     // Update how many characters the user can use
     document.getElementsByClassName("comment-textarea")[0].addEventListener("keyup", function() {
         document.getElementsByClassName("limit-characters")[0].textContent = 1000 - document.getElementsByClassName("comment-textarea")[0].value.length; 
+    });
+    
+    // Update how many characters the user can use while editing the comment
+    document.getElementById("textarea-comment").addEventListener("keyup", function() {
+        document.getElementsByClassName("limit-characters-edit")[0].textContent = 1000 - document.getElementById("textarea-comment").value.length;  
     });
 </script>
 
