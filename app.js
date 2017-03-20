@@ -226,12 +226,14 @@ app.get("/profile/:id/edit", function(req, res) {
     
 // Update user information
 app.put("/profile/:id", function(req, res) {
+    console.log("Editing user");
     User.findByIdAndUpdate(req.params.id, req.body.user, function(err, user) {
        if (err) {
            console.log(err);
            res.redirect("back");
        } else {
-           res.redirect("/profile");
+           console.log("Editing user 1: " + user.username);
+           res.redirect("/profile/" + user.username);
        }
     });
 });

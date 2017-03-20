@@ -39,22 +39,34 @@
             <% } else { %>
                 <% movie.comments.forEach(function(comment) { %>
                     <div class="comment">
-                        <p class="author"><a href="/profile/<%= comment.author.username %>"><%= comment.author.username %>:</a></p>
-                        <p><%= comment.text %></p>
+                        <div class="extremes">
+                            <p class="author"><a href="/profile/<%= comment.author.username %>"><%= comment.author.username %>:</a></p>
+                            <% if (currUser && comment.author.id.equals(currUser._id)) { %>
+                                <form action="/movies/<%= info["imdbID"] %>/comments/<%= comment._id %>?_method=DELETE" method="POST"> 
+                                    <button type="submit" class="glyphicon-btn">
+                                        <span class="glyphicon glyphicon-remove" title="Delete" aria-hidden="true"></span>
+                                    </button>
+                                </form>
+                            <% } %>
+                        </div>
+                        <span><%= comment.text %></span>
                         <% if (currUser && comment.author.id.equals(currUser._id)) { %>
-                            <input class="btn btn-default" type="button" onclick="ShowModal('<%= comment.text %>', '<%= info["imdbID"] %>', '<%= comment._id %>')" value="Edit">
-                            <form action="/movies/<%= info["imdbID"] %>/comments/<%= comment._id %>?_method=DELETE" method="POST"> 
-                                <input type="submit" value="Delete" class="btn btn-default">
-                            </form>
+                            <button onclick="ShowModal('<%= comment.text %>', '<%= info["imdbID"] %>', '<%= comment._id %>')" class="glyphicon-btn">
+                                <span class="glyphicon glyphicon-pencil" title="Edit" aria-hidden="true"></span>
+                            </button>
                         <% } %>
                     </div>
                 <% }); %>
                 <% if (currUser) { %>
                     <div class="comment-form">
                         <form action="/movies/<%= info["imdbID"] %>/comments" method="POST">
-                            <textarea name="comment[text]" placeholder="Enter the comment" class="block comment-textarea" rows="5"></textarea>
+                            <textarea name="comment[text]" maxlength="1000" placeholder="Enter the comment" class="block comment-textarea" rows="5"></textarea>
                             <div class="align-right">
-                                <input type="submit" class="btn btn-success comment-btn" value="Send">
+                                <p>* <span class="limit-characters">1000</span> characters left</p>
+                            </div>
+                            <div class="comment-btns">
+                                <input type="button" class="btn btn-default clear-btn" value="Clear">
+                                <input type="submit" class="btn btn-success submit-btn" value="Send">
                             </div>
                         </form>
                     </div>
@@ -74,9 +86,9 @@
       </div>
       <div class="modal-body">
         <form id="comment-form" action="/movies/" method="POST">
-            <textarea id="textarea-comment" name="comment[text]" class="block comment-textarea" rows="5"></textarea>
+            <textarea id="textarea-comment" maxlength="1000" name="comment[text]" class="block comment-textarea" rows="5"></textarea>
             <div class="align-right">
-                <input type="submit" class="btn btn-success comment-btn" value="Edit">
+                <input type="submit" class="btn btn-success submit-btn" value="Edit">
             </div>
         </form>
       </div>
@@ -86,11 +98,23 @@
 
 <script type="text/javascript" src="/js/bootstrap.min.js"></script>
 <script>
+    // Show modal to edit comment
     function ShowModal(oldComment, movieID, commentID) {
         document.getElementById("textarea-comment").value = oldComment;
         document.getElementById("comment-form").action = "/movies/" + movieID + "/comments/" + commentID + "?_method=PUT";
         $("#comment-md").modal("show");
     }
+    
+    // Clear the textarea with comment
+    document.getElementsByClassName("clear-btn")[0].addEventListener("click", function() {
+        document.getElementsByClassName("comment-textarea")[0].value = "";
+        document.getElementsByClassName("limit-characters")[0].textContent = 1000;
+    });
+    
+    // Update how many characters the user can use
+    document.getElementsByClassName("comment-textarea")[0].addEventListener("keyup", function() {
+        document.getElementsByClassName("limit-characters")[0].textContent = 1000 - document.getElementsByClassName("comment-textarea")[0].value.length; 
+    });
 </script>
 
 <% include ../partials/footer %>

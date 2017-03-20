@@ -99,7 +99,7 @@ a:hover {
 
 .profile-left {
     margin-top: 20px;
-    height: 620px;
+    height: 630px;
 }
 
 .profile-wantToWatch, .profile-watched {
@@ -118,19 +118,35 @@ a:hover {
 }
 
 .comment-textarea {
-    width:100%;    
+    width: 100%;    
 }
 
-.comment-btn {
+.submit-btn, .clear-btn {
     width: 20%;
+    min-width: 100px;
     margin-top: 5px;
+}
+
+.profile, .comment-btns, .extremes {
+    display: flex;
+    justify-content: space-between;
+}
+
+.edit-btn {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .align-right {
     text-align: right;
 }
 
-.remove-movie {
+.align-center {
+    text-align: center;
+}
+
+.glyphicon-btn {
     background-color: transparent;
     background-repeat: no-repeat;
     border: none;
@@ -140,4 +156,37 @@ a:hover {
 
 #form-watched {
     display: inline;
+}
+
+#form-register {
+    width: 70%;
+    margin: 40px auto;
+}
+
+#form-login {
+    width: 40%;
+    margin: 40px auto;
+}
+
+.btn-center {
+    margin: 0 auto;
+}
+
+.action {
+    text-align: center;
+    color: gray;
+}
+
+.glyphicon {
+    color: gray;
+    cursor: pointer;
+}
+
+.glyphicon:hover {
+    color: #000000;
+    cursor: pointer;
+}
+
+.username-tab {
+    font-size: 16px;
 }
