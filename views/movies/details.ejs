@@ -1,7 +1,7 @@
 <% include ../partials/header %>
 
 <div class="container">
-    <h1 class="center"><%= info["Title"] %> (<%= info["Year"] %>)</h1>
+    <h1 class="center"><span class="field-title"><%= info["Title"] %> (<%= info["Year"] %>)</span></h1>
     <div class="row container-info">
         <div class="col-sm-4 col-xs-12 center info">
             <% if (info["Poster"] && info["Poster"] != "N/A") { %>
@@ -25,14 +25,14 @@
             <p><span class="field-title">Duration: </span><%= info["Runtime"] %></p>
             <p><span class="field-title">IMDb Rating: </span><%= info["imdbRating"] %></p>
             <p><span class="field-title">Plot: </span><%= info["Plot"] %></p>
-            <p><a href="http://www.imdb.com/title/<%= info["imdbID"] %>" class="btn btn-default">Link to IMDb</a></p>
+            <p><a href="http://www.imdb.com/title/<%= info["imdbID"] %>" class="btn btn-warning">Link to IMDb</a></p>
         </div>
     </div>
 </div>
 
 <div class="container">
     <div class="container-info">
-        <h1>Comments</h1>
+        <h1><span class="field-title">Comments</span></h1>
         <div>
             <% if (!movie) { %>
                 <p>Sorry, one error happened trying to load the comments. Try to refresh the page.</p>
@@ -44,7 +44,7 @@
                             <% if (currUser && comment.author.id.equals(currUser._id)) { %>
                                 <form action="/movies/<%= info["imdbID"] %>/comments/<%= comment._id %>?_method=DELETE" method="POST"> 
                                     <button type="submit" class="glyphicon-btn">
-                                        <span class="glyphicon glyphicon-remove" title="Delete" aria-hidden="true"></span>
+                                        <span class="glyphicon glyphicon-remove glyphicon-general" title="Delete" aria-hidden="true"></span>
                                     </button>
                                 </form>
                             <% } %>
@@ -52,7 +52,7 @@
                         <span><%= comment.text %></span>
                         <% if (currUser && comment.author.id.equals(currUser._id)) { %>
                             <button onclick="ShowModal('<%= comment.text %>', '<%= info["imdbID"] %>', '<%= comment._id %>')" class="glyphicon-btn">
-                                <span class="glyphicon glyphicon-pencil" title="Edit" aria-hidden="true"></span>
+                                <span class="glyphicon glyphicon-pencil glyphicon-general" title="Edit" aria-hidden="true"></span>
                             </button>
                         <% } %>
                     </div>
@@ -64,7 +64,7 @@
                             <div class="align-right">
                                 <p>* <span class="limit-characters">1000</span> characters left</p>
                             </div>
-                            <div class="comment-btns">
+                            <div class="extremes">
                                 <input type="button" class="btn btn-default clear-btn" value="Clear">
                                 <input type="submit" class="btn btn-success submit-btn" value="Send">
                             </div>

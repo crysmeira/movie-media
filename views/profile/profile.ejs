@@ -2,30 +2,30 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-4">
-            <div class="profile-left">
-                <div class="profile">
-                    <h1><%= user.first_name %> <%= user.last_name %></h1>
+        <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12">
+            <div class="container-info profile-left">
+                <div class="extremes">
+                    <h2 class="profile-header"><span class="field-title"><%= user.first_name %> <%= user.last_name %></span></h2>
                     <% if (currUser && user._id.equals(currUser._id)) { %>
-                        <h4><a href="/profile/<%= user._id %>/edit"><span class="glyphicon glyphicon-pencil edit-btn" title="Edit" aria-hidden="true"></span></a></h4>
+                        <h5><a href="/profile/<%= user._id %>/edit"><span class="glyphicon glyphicon-pencil glyphicon-general edit-btn" title="Edit" aria-hidden="true"></span></a></h5>
                     <% } %>
                 </div>
-                <h4>@<%= user.username %></h4>
-                <h4>Age: <%= user.age %></h4>
-                <h4>Country: <%= user.country %></h4>
-                <h4>About me: <%= user.about %></h4>
+                <h5 class="profile-header-username">@<%= user.username %></h5>
+                <h5><span class="field-title">Age:</span> <%= user.age %></h5>
+                <h5><span class="field-title">Country:</span> <%= user.country %></h5>
+                <h5 class="about"><span class="field-title">About me:</span> <%= user.about %></h5>
             </div>
         </div>
-        <div class="col-md-8">
+        <div class="col-lg-9 col-md-8 col-sm-12 col-xs-12">
             <div class="profile-watched">
-                <h1>Watched</h1>
+                <h2><span class="field-title">Watched</span></h2>
                 <div class="list-movies">
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <td>Movie</td>
+                                <th>Movie</th>
                                 <% if (currUser && user._id.equals(currUser._id)) { %>
-                                    <td class="action">Action</td>
+                                    <th class="center">Action</th>
                                 <% } %>
                             </tr>
                         </thead>
@@ -34,10 +34,10 @@
                             <tr>
                                 <td><a href="/movies/<%= movie.imdbID %>"><%= movie.title %></a></td>
                                 <% if (currUser && user._id.equals(currUser._id)) { %>
-                                    <td class="action">
+                                    <td class="center">
                                         <form action="/<%= user.username %>/<%= movie.imdbID %>/watched?_method=DELETE" method="POST">
                                             <button type="submit" class="glyphicon-btn">
-                                                <span class="glyphicon glyphicon-trash" title="Remove" aria-hidden="true"></span>
+                                                <span class="glyphicon glyphicon-trash glyphicon-general" title="Remove" aria-hidden="true"></span>
                                             </button>
                                         </form>
                                     </td>
@@ -49,14 +49,14 @@
                 </div>
             </div>
             <div class="profile-wantToWatch">
-                <h1>Want to watch</h1>
+                <h2><span class="field-title">Want to watch</span></h2>
                 <div class="list-movies">
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <td>Movie</td>
+                                <th>Movie</th>
                                 <% if (currUser && user._id.equals(currUser._id)) { %>
-                                    <td class="action">Action</td>
+                                    <th class="center">Action</th>
                                 <% } %>
                             </tr>
                         </thead>
@@ -65,15 +65,15 @@
                             <tr>
                                 <td><a href="/movies/<%= movie.imdbID %>"><%= movie.title %></a></td>
                                 <% if (currUser && user._id.equals(currUser._id)) { %>
-                                    <td class="action">
+                                    <td class="center">
                                         <form id="form-watched" action="/<%= user.username %>/<%= movie.imdbID %>/wantToWatch?_method=PUT" method="POST">
                                             <button type="submit" class="glyphicon-btn">
-                                                <span class="glyphicon glyphicon-check" title="Move to 'Watched'" aria-hidden="true"></span>
+                                                <span class="glyphicon glyphicon-check glyphicon-general" title="Move to 'Watched'" aria-hidden="true"></span>
                                             </button>
                                         </form>
                                         <form id="form-watched" action="/<%= user.username %>/<%= movie.imdbID %>/wantToWatch?_method=DELETE" method="POST">
                                             <button type="submit" class="glyphicon-btn">
-                                                <span class="glyphicon glyphicon-trash" title="Remove" aria-hidden="true"></span>
+                                                <span class="glyphicon glyphicon-trash glyphicon-general" title="Remove" aria-hidden="true"></span>
                                             </button>
                                         </form>
                                     </td>

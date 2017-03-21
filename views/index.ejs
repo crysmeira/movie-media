@@ -5,16 +5,54 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Movie Media</title>
         <link type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+        <link type="text/css" href="/stylesheets/main.css" rel="stylesheet">
         <link type="text/css" href="/stylesheets/search.css" rel="stylesheet">
         <script type="text/javascript" src="/js/jquery-3.1.1.js"></script>
     </head>
     <body>
+        <nav class="navbar transparent navbar-default navbar-fixed-top navbar-inverse">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/movies"><span class="glyphicon glyphicon-facetime-video glyphicon-navbar" aria-hidden="false"></span> Movie Media</a>
+                </div>
+                
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
+                        <% if (!currUser) { %>
+                            <li><a href="/login">Login</a></li>
+                            <li><a href="/register">Sign up</a></li>
+                        <% } else { %>
+                            <li class="glyphicon-navbar"><a href="/profile/<%= currUser.username %>"><span class="glyphicon glyphicon-user" aria-hidden="true"></span><span class="username-tab"><%= currUser.username %></span></a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/profile/<%= currUser.username %>">Profile</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="/logout">Logout</a></li>
+                                </ul>
+                            </li>
+                        <% } %>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+        
         <div id="search-header">
-            <h1>Search your movie</h1>
+            <h1><span class="glyphicon glyphicon-facetime-video glyphicon-navbar" aria-hidden="false"></span> Movie Media</h1>
             <form action="/movies" method="POST">
-                <input type="text" name="search" placeholder="Enter your search here...">
-                <input type="submit" class="btn btn-default" value="Search">
+                <input type="text" name="search" placeholder="Enter your search...">
+                <input type="submit" class="btn btn-danger" value="Search">
             </form>
         </div>
+        
+<script type="text/javascript" src="/js/bootstrap.min.js"></script>
 
 <% include partials/footer %>

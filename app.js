@@ -107,7 +107,7 @@ app.post("/movies/:id/comments", isLogged, function(req, res) {
                             m.comments.push(comment);
                             m.save();
                             console.log("comment added to movie");
-                            res.redirect("/movies/" + req.params.id);
+                            res.redirect("back");
                         }
                     });
                 }
