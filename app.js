@@ -107,7 +107,7 @@ app.post("/movies/:id/comments", isLogged, function(req, res) {
                             m.comments.push(comment);
                             m.save();
                             console.log("comment added to movie");
-                            res.redirect("back");
+                            res.redirect("/movies/" + req.params.id);
                         }
                     });
                 }
@@ -302,6 +302,15 @@ app.delete("/:username/:id/wantToWatch", isLogged, function(req, res) {
     });
 });
 
+/*******************************************************************************
+ * 
+ * Start server
+ * 
+ ******************************************************************************/
+app.get("*", function(req, res) {
+    res.render("not_found");
+});
+ 
 /*******************************************************************************
  * 
  * Start server
