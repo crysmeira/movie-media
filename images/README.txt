@@ -1,0 +1,1 @@
+Folder containing images from the Movie Media web application.
