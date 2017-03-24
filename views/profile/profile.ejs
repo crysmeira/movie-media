@@ -35,7 +35,7 @@
                                 <td><a href="/movies/<%= movie.imdbID %>"><%= movie.title %></a></td>
                                 <% if (currUser && user._id.equals(currUser._id)) { %>
                                     <td class="center">
-                                        <form action="/<%= user.username %>/<%= movie.imdbID %>/watched?_method=DELETE" method="POST">
+                                        <form action="/profile/<%= user.username %>/<%= movie.imdbID %>/watched?_method=DELETE" method="POST">
                                             <button type="submit" class="glyphicon-btn">
                                                 <span class="glyphicon glyphicon-trash glyphicon-general" title="Remove" aria-hidden="true"></span>
                                             </button>
@@ -66,12 +66,12 @@
                                 <td><a href="/movies/<%= movie.imdbID %>"><%= movie.title %></a></td>
                                 <% if (currUser && user._id.equals(currUser._id)) { %>
                                     <td class="center">
-                                        <form id="form-watched" action="/<%= user.username %>/<%= movie.imdbID %>/wantToWatch?_method=PUT" method="POST">
+                                        <form id="form-watched" action="/profile/<%= user.username %>/<%= movie.imdbID %>/wantToWatch?_method=PUT" method="POST">
                                             <button type="submit" class="glyphicon-btn">
                                                 <span class="glyphicon glyphicon-check glyphicon-general" title="Move to 'Watched'" aria-hidden="true"></span>
                                             </button>
                                         </form>
-                                        <form id="form-watched" action="/<%= user.username %>/<%= movie.imdbID %>/wantToWatch?_method=DELETE" method="POST">
+                                        <form id="form-watched" action="/profile/<%= user.username %>/<%= movie.imdbID %>/wantToWatch?_method=DELETE" method="POST">
                                             <button type="submit" class="glyphicon-btn">
                                                 <span class="glyphicon glyphicon-trash glyphicon-general" title="Remove" aria-hidden="true"></span>
                                             </button>

@@ -54,7 +54,7 @@ middlewareObj.getDetailedInfo = function(id, res) {
         } else {
             // check if this movie is in the database
             if (!movie) {
-                this.createMovieInDatabase(id);
+                middlewareObj.createMovieInDatabase(id);
             }
             request("http://www.omdbapi.com/?i=" + id + "&plot=full", 
                                                 function(err, response, body) {  
@@ -136,7 +136,7 @@ middlewareObj.addIfNotInAList = function(username, movieID, field, res) {
                         }
                     }
                     console.log("new movie");
-                    this.addMovieToUser(username, movieID, field, res);
+                    middlewareObj.addMovieToUser(username, movieID, field, res);
                 }
             });
         }

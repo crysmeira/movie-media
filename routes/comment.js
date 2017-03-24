@@ -5,19 +5,20 @@
  ******************************************************************************/
 
 var express = require("express");
+
 var router = express.Router({mergeParams: true});
 
-var Movie = require("../models/movie");
-var Comment = require("../models/comment");
-var middleware = require("../middleware");
+var Movie       = require("../models/movie"),
+    Comment     = require("../models/comment"),
+    middleware  = require("../middleware");
 
 // New comment
-router.get("/movies/:id/comments/new", middleware.isLogged, function(req, res) {
+router.get("/new", middleware.isLogged, function(req, res) {
     res.render("cooments/new", {id: req.params.id});
 });
 
 // Create comment
-router.post("/movies/:id/comments", middleware.isLogged, function(req, res) {
+router.post("/", middleware.isLogged, function(req, res) {
     Movie.findOne({"imdbID": req.params.id}, "imdbID", function(err, movie) {
         if (err) {
             console.log(err); // to do: improve
@@ -55,7 +56,7 @@ router.post("/movies/:id/comments", middleware.isLogged, function(req, res) {
 });
 
 // Update comment
-router.put("/movies/:id/comments/:comment_id", middleware.checkCommentOwnership, 
+router.put("/:comment_id", middleware.checkCommentOwnership, 
                                                         function(req, res) {
     Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment,
                                                     function(err, comment) {
@@ -69,7 +70,7 @@ router.put("/movies/:id/comments/:comment_id", middleware.checkCommentOwnership,
 });
 
 // Delete comment
-router.delete("/movies/:id/comments/:comment_id", middleware.checkCommentOwnership,
+router.delete("/:comment_id", middleware.checkCommentOwnership,
                                                         function(req, res) {
     Comment.findByIdAndRemove(req.params.comment_id, function(err) {
         if (err) {

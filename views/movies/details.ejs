@@ -10,10 +10,10 @@
                 <img class="img-responsive" src="/images/no_image_available.png" alt="<%= info["Title"] %> - Poster">
             <% } %>
             <% if (currUser) { %>
-                <form action="/<%= currUser.username %>/<%= info["imdbID"] %>/watched" method="POST">
+                <form action="/profile/<%= currUser.username %>/<%= info["imdbID"] %>/watched" method="POST">
                     <input type="submit" class="btn btn-default btn-watched" value="Watched">
                 </form>
-                <form action="/<%= currUser.username %>/<%= info["imdbID"] %>/wantToWatch" method="POST">
+                <form action="/profile/<%= currUser.username %>/<%= info["imdbID"] %>/wantToWatch" method="POST">
                     <input type="submit" class="btn btn-default btn-wantToWatch" value="Want to watch">
                 </form>
             <% } %>

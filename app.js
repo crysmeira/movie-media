@@ -10,7 +10,6 @@ var express         = require("express"),
     
 var movieRoutes             = require("./routes/movie"),    
     commentRoutes           = require("./routes/comment"),
-    authenticationRoutes    = require("./routes/authentication"),
     userRoutes              = require("./routes/user"),
     indexRoutes             = require("./routes/index");
     
@@ -46,11 +45,10 @@ app.use(function(req, res, next) {
 });
 
 // Requiring routes
+app.use("/movies", movieRoutes);
+app.use("/movies/:id/comments", commentRoutes);
+app.use("/profile", userRoutes);
 app.use("/", indexRoutes);
-app.use("/", movieRoutes);
-app.use("/", commentRoutes);
-app.use("/", authenticationRoutes);
-app.use("/", userRoutes);
 
 /*******************************************************************************
  * 
