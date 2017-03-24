@@ -7,8 +7,4 @@ router.get("/", function(req, res) {
     
 });
 
-router.get("*", function(req, res) {
-    res.render("not_found");
-});
-
 module.exports = router;
