@@ -9,7 +9,7 @@
         <link type="text/css" href="/stylesheets/search.css" rel="stylesheet">
         <script type="text/javascript" src="/js/jquery-3.1.1.js"></script>
     </head>
-    <body>
+    <body class="index-page">
         <nav class="navbar transparent navbar-default navbar-fixed-top navbar-inverse">
             <div class="container-fluid">
                 <!-- Brand and toggle get grouped for better mobile display -->
@@ -44,11 +44,11 @@
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
         </nav>
-        <div id="search-header">
-            <h1><span class="glyphicon glyphicon-facetime-video glyphicon-navbar" aria-hidden="false"></span> Movie Media</h1>
+        <div class="search-header">
+            <h1 class="search-header__title"><span class="glyphicon glyphicon-facetime-video glyphicon-navbar" aria-hidden="false"></span> Movie Media</h1>
             <form action="/movies" method="POST">
-                <input type="text" name="search" placeholder="Enter your search...">
-                <input type="submit" class="btn btn-danger" value="Search">
+                <input class="search-header__input" type="text" name="search" placeholder="Enter your search...">
+                <input class="btn btn-danger search-header__button" type="submit" value="Search">
             </form>
         </div>
 

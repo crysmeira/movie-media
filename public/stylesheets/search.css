@@ -1,4 +1,4 @@
-body {
+.index-page {
     background: url("/images/columbus-1936633_1920_3.jpg") no-repeat center center fixed;
     background-color: #000000;
     -webkit-background-size: cover;
@@ -7,18 +7,7 @@ body {
     background-size: cover;
 }
 
-#search-header2 {
-    z-index: 1;
-    position: fixed;
-    top: 35%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 40px 90px;
-    text-align: center;
-    max-width: 600px;
-}
-
-#search-header {
+.search-header {
     z-index: 1;
     position: fixed;
     top: 50%;
@@ -29,7 +18,7 @@ body {
     max-width: 600px;
 }
 
-h1 {
+.search-header .search-header__title {
     color: #ffffff;
     margin-top: 0;
     margin-bottom: 50px;
@@ -39,14 +28,14 @@ h1 {
     /*text-shadow: -1px 0 gray, 0 1px gray, 1px 0 gray, 0 -1px gray;*/
 }
 
-input[type="text"] {
+.search-header__input {
     display: block;
     width: 100%;
     height: 40px;
     padding: 5px 5px 5px 10px;
 }
 
-input[type="submit"] {
+.search-header__button {
     margin-top: 30px;
     min-width: 100px;
     width: 100%;
