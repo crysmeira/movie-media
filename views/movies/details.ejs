@@ -1,14 +1,14 @@
 <% include ../partials/header %>
 
 <div class="container">
-    <h1 class="center"><span class="title"><%= info["Title"] %> (<%= info["Year"] %>)</span></h1>
+    <h1 class="title center"><%= info["Title"] %> (<%= info["Year"] %>)</h1>
     
     <div class="row container-info">
         <div class="col-sm-4 col-xs-12 center movie-poster">
             <% if (info["Poster"] && info["Poster"] != "N/A") { %>
-                <img class="img-responsive" src="<%= info["Poster"] %>" alt="<%= info["Title"] %> - Poster">
+                <img class="img-responsive movie-poster__img-responsive" src="<%= info["Poster"] %>" alt="<%= info["Title"] %> - Poster">
             <% } else { %>
-                <img class="img-responsive" src="/images/no_image_available.png" alt="<%= info["Title"] %> - Poster">
+                <img class="img-responsive movie-poster__img-responsive" src="/images/no_image_available.png" alt="<%= info["Title"] %> - Poster">
             <% } %>
             <% if (currUser) { %>
                 <form action="/profile/<%= currUser.username %>/<%= info["imdbID"] %>/watched" method="POST">

@@ -42,14 +42,14 @@ class Movie {
             poster = "/images/no_image_available.png";
         }
         var year = this.data["Year"];
-        pageElement.className = "col col-md-3 col-sm-4 col-xs-6";
+        pageElement.className = "movie col-md-3 col-sm-4 col-xs-6";
         pageElement.innerHTML = this.generateHTML(imdbID, title, year, poster);
     }
     
     generateHTML(imdbID, title, year, poster) {
-        return  "<a class='thumbnail' href='/movies/" + imdbID + "'>" +
-                    "<div class='poster'>" +
-                        "<img class='img-responsive' src=" + poster + " alt=" + title + " - Poster>" + 
+        return  "<a class='thumbnail movie__thumbnail' href='/movies/" + imdbID + "'>" +
+                    "<div class='movie__poster'>" +
+                        "<img class='img-responsive movie__img-responsive' src=" + poster + " alt=" + title + " - Poster>" + 
                         "<p class='title'>" + title + "</p>" +
                         "<p>(" + year + ")</p>" +
                     "</div>" +

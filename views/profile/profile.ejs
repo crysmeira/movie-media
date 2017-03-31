@@ -66,12 +66,12 @@
                                 <td><a href="/movies/<%= movie.imdbID %>"><%= movie.title %></a></td>
                                 <% if (currUser && user._id.equals(currUser._id)) { %>
                                     <td class="center">
-                                        <form id="form-watched" action="/profile/<%= user.username %>/<%= movie.imdbID %>/wantToWatch?_method=PUT" method="POST">
+                                        <form class="profile__btn-inline" action="/profile/<%= user.username %>/<%= movie.imdbID %>/wantToWatch?_method=PUT" method="POST">
                                             <button type="submit" class="profile__btn-glyphicon">
                                                 <span class="glyphicon glyphicon-check profile__glyphicon" title="Move to 'Watched'" aria-hidden="true"></span>
                                             </button>
                                         </form>
-                                        <form id="form-watched" action="/profile/<%= user.username %>/<%= movie.imdbID %>/wantToWatch?_method=DELETE" method="POST">
+                                        <form class="profile__btn-inline" action="/profile/<%= user.username %>/<%= movie.imdbID %>/wantToWatch?_method=DELETE" method="POST">
                                             <button type="submit" class="profile__btn-glyphicon">
                                                 <span class="glyphicon glyphicon-trash profile__glyphicon" title="Remove" aria-hidden="true"></span>
                                             </button>

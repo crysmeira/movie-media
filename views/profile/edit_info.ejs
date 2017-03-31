@@ -1,57 +1,55 @@
 <% include ../partials/header %>
 
 <div class="container">
-    <h1 class="center"><span class="field-title">Edit Profile</span></h1>
-    <div id="form-register">
-        <form action="/profile/<%= currUser._id %>?_method=PUT" method="POST">
-            <div class="row">
-                <div class="form-group col-md-5 col-xs-12">
-                    <label for="inputFirstName">First Name:</label>
-                    <input type="text" class="form-control" name="user[first_name]" id="inputFirstName" value="<%= currUser.first_name %>">
-                </div>
-                <div class="form-group col-md-5 col-xs-12">
-                    <label for="inputLastName">Last Name:</label>
-                    <input type="text" class="form-control" name="user[last_name]" id="inputLastName" value="<%= currUser.last_name %>">
-                </div>
-                <div class="form-group col-md-2 col-xs-12">
-                    <label for="inputAge">Age:</label>
-                    <input type="number" class="form-control" name="user[age]" id="inputAge" min="0" max="100" value="<%= currUser.age %>">
+    <h1 class="title center">Edit Profile</h1>
+    <form class="form-register" action="/profile/<%= currUser._id %>?_method=PUT" method="POST">
+        <div class="row">
+            <div class="form-group col-md-5 col-xs-12">
+                <label for="inputFirstName">First Name:</label>
+                <input type="text" class="form-control" name="user[first_name]" id="inputFirstName" value="<%= currUser.first_name %>">
+            </div>
+            <div class="form-group col-md-5 col-xs-12">
+                <label for="inputLastName">Last Name:</label>
+                <input type="text" class="form-control" name="user[last_name]" id="inputLastName" value="<%= currUser.last_name %>">
+            </div>
+            <div class="form-group col-md-2 col-xs-12">
+                <label for="inputAge">Age:</label>
+                <input type="number" class="form-control" name="user[age]" id="inputAge" min="0" max="100" value="<%= currUser.age %>">
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6 col-xs-12">
+                <label for="inputEmail">Email:</label>
+                <input type="email" class="form-control" name="user[email]" id="inputEmail" value="<%= currUser.email %>">
+            </div>
+            <div class="form-group col-md-6 col-xs-12">
+                <label for="inputCountry">Country:</label>
+                <input type="text" class="form-control" name="user[country]" id="inputCountry" value="<%= currUser.country %>">
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-12 col-xs-12 form-about">
+                <label for="inputAbout">About me:</label>
+                <textarea class="form-control" maxlength="750" id="inputAbout" name="user[about]" rows="4" cols="50"></textarea>
+                <div class="align-right">
+                    <p>* <span class="form-about__limit-characters">750</span> characters left</p>
                 </div>
             </div>
-            <div class="row">
-                <div class="form-group col-md-6 col-xs-12">
-                    <label for="inputEmail">Email:</label>
-                    <input type="email" class="form-control" name="user[email]" id="inputEmail" value="<%= currUser.email %>">
-                </div>
-                <div class="form-group col-md-6 col-xs-12">
-                    <label for="inputCountry">Country:</label>
-                    <input type="text" class="form-control" name="user[country]" id="inputCountry" value="<%= currUser.country %>">
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-group col-md-12 col-xs-12">
-                    <label for="inputAbout">About me:</label>
-                    <textarea class="form-control" maxlength="750" id="inputAbout" name="user[about]" rows="4" cols="50"></textarea>
-                    <div class="align-right">
-                        <p>* <span class="limit-characters">750</span> characters left</p>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <input type="submit" class="btn btn-success btn-center submit-btn" value="Edit">
-            </div>
-        </form>
-    </div>
+        </div>
+        <div class="row">
+            <input type="submit" class="btn btn-success btn-center btn-submit" value="Edit">
+        </div>
+    </form>
 </div>
 
 <script type="text/javascript" src="/js/bootstrap.min.js"></script>
 <script>
     document.getElementById("inputAbout").value = "<%= currUser.about %>";
-    document.getElementsByClassName("limit-characters")[0].textContent = 750 - document.getElementById("inputAbout").value.length; 
+    document.getElementsByClassName("form-about__limit-characters")[0].textContent = 750 - document.getElementById("inputAbout").value.length; 
     
     // Update how many characters the user can use
     document.getElementById("inputAbout").addEventListener("keyup", function() {
-        document.getElementsByClassName("limit-characters")[0].textContent = 750 - document.getElementById("inputAbout").value.length;
+        document.getElementsByClassName("form-about__limit-characters")[0].textContent = 750 - document.getElementById("inputAbout").value.length;
     });
 </script>
 
