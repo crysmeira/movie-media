@@ -1,25 +1,25 @@
 <% include ../partials/header %>
 
 <div class="container">
-    <div class="row">
+    <div class="profile row">
         <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12">
-            <div class="container-info profile-left">
+            <div class="profile__info profile__left">
                 <div class="extremes">
-                    <h2 class="profile-header"><span class="field-title"><%= user.first_name %> <%= user.last_name %></span></h2>
+                    <h2 class="extremes__header title"><%= user.first_name %> <%= user.last_name %></h2>
                     <% if (currUser && user._id.equals(currUser._id)) { %>
-                        <h5><a href="/profile/<%= user._id %>/edit"><span class="glyphicon glyphicon-pencil glyphicon-general edit-btn" title="Edit" aria-hidden="true"></span></a></h5>
+                        <h5><a href="/profile/<%= user._id %>/edit"><span class="glyphicon glyphicon-pencil extremes__glyphicon extremes__btn-edit" title="Edit" aria-hidden="true"></span></a></h5>
                     <% } %>
                 </div>
-                <h5 class="profile-header-username">@<%= user.username %></h5>
-                <h5><span class="field-title">Age:</span> <%= user.age %></h5>
-                <h5><span class="field-title">Country:</span> <%= user.country %></h5>
-                <h5 class="about"><span class="field-title">About me:</span> <%= user.about %></h5>
+                <h5 class="profile__username">@<%= user.username %></h5>
+                <h5><span class="title">Age:</span> <%= user.age %></h5>
+                <h5><span class="title">Country:</span> <%= user.country %></h5>
+                <h5 class="profile__about"><span class="title">About me:</span> <%= user.about %></h5>
             </div>
         </div>
         <div class="col-lg-9 col-md-8 col-sm-12 col-xs-12">
-            <div class="profile-watched">
-                <h2><span class="field-title">Watched</span></h2>
-                <div class="list-movies">
+            <div class="profile__watched">
+                <h2><span class="title">Watched</span></h2>
+                <div class="profile__list-movies">
                     <table class="table table-hover">
                         <thead>
                             <tr>
@@ -36,8 +36,8 @@
                                 <% if (currUser && user._id.equals(currUser._id)) { %>
                                     <td class="center">
                                         <form action="/profile/<%= user.username %>/<%= movie.imdbID %>/watched?_method=DELETE" method="POST">
-                                            <button type="submit" class="glyphicon-btn">
-                                                <span class="glyphicon glyphicon-trash glyphicon-general" title="Remove" aria-hidden="true"></span>
+                                            <button type="submit" class="profile__btn-glyphicon">
+                                                <span class="glyphicon glyphicon-trash profile__glyphicon" title="Remove" aria-hidden="true"></span>
                                             </button>
                                         </form>
                                     </td>
@@ -48,9 +48,9 @@
                     </table>
                 </div>
             </div>
-            <div class="profile-wantToWatch">
-                <h2><span class="field-title">Want to watch</span></h2>
-                <div class="list-movies">
+            <div class="profile__want-to-watch">
+                <h2><span class="title">Want to watch</span></h2>
+                <div class="profile__list-movies">
                     <table class="table table-hover">
                         <thead>
                             <tr>
@@ -67,13 +67,13 @@
                                 <% if (currUser && user._id.equals(currUser._id)) { %>
                                     <td class="center">
                                         <form id="form-watched" action="/profile/<%= user.username %>/<%= movie.imdbID %>/wantToWatch?_method=PUT" method="POST">
-                                            <button type="submit" class="glyphicon-btn">
-                                                <span class="glyphicon glyphicon-check glyphicon-general" title="Move to 'Watched'" aria-hidden="true"></span>
+                                            <button type="submit" class="profile__btn-glyphicon">
+                                                <span class="glyphicon glyphicon-check profile__glyphicon" title="Move to 'Watched'" aria-hidden="true"></span>
                                             </button>
                                         </form>
                                         <form id="form-watched" action="/profile/<%= user.username %>/<%= movie.imdbID %>/wantToWatch?_method=DELETE" method="POST">
-                                            <button type="submit" class="glyphicon-btn">
-                                                <span class="glyphicon glyphicon-trash glyphicon-general" title="Remove" aria-hidden="true"></span>
+                                            <button type="submit" class="profile__btn-glyphicon">
+                                                <span class="glyphicon glyphicon-trash profile__glyphicon" title="Remove" aria-hidden="true"></span>
                                             </button>
                                         </form>
                                     </td>

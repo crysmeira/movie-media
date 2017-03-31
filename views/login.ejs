@@ -1,22 +1,20 @@
 <% include partials/header %>
 
 <div class="container">
-    <h1 class="center"><span class="field-title">Login</span></h1>
-    <div id="form-login">
-        <form action="/login" method="POST">
-            <div class="form-group">
-                <label for="inputUsername">Username</label>
-                <input type="text" class="form-control" name="username" id="inputUsername" placeholder="Username">
-            </div>
-            <div class="form-group">
-                <label for="inputPassword">Password</label>
-                <input type="password" class="form-control" name="password" id="inputPassword" placeholder="Password">
-            </div>
-            <div class="row">
-                <input type="submit" class="btn btn-success btn-center submit-btn" value="Login">
-            </div>
-        </form>
-    </div>
+    <h1 class="center"><span class="title">Login</span></h1>
+    <form class="form-login" action="/login" method="POST">
+        <div class="form-group">
+            <label for="inputUsername">Username</label>
+            <input type="text" class="form-control" name="username" id="inputUsername" placeholder="Username">
+        </div>
+        <div class="form-group">
+            <label for="inputPassword">Password</label>
+            <input type="password" class="form-control" name="password" id="inputPassword" placeholder="Password">
+        </div>
+        <div class="row">
+            <input type="submit" class="btn btn-success btn-center btn-submit" value="Login">
+        </div>
+    </form>
 </div>
 
 <script type="text/javascript" src="/js/bootstrap.min.js"></script>

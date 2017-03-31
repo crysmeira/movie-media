@@ -1,6 +1,211 @@
+/* general */
+
 body {
     padding-top: 70px;
 }
+
+.img-responsive {
+    margin: auto;
+}
+
+.center {
+    text-align: center;
+}
+
+.title {
+    font-weight: bold;
+    margin-bottom: 0;
+    margin-top: 10px;
+}
+
+/* form-login */
+
+.form-login {
+    width: 40%;
+    margin: 40px auto;
+}
+
+/* form-register */
+
+.form-register {
+    width: 70%;
+    margin: 40px auto;
+}
+
+/* btns */
+
+.btn-center {
+    margin: 0 auto;
+}
+
+.btn-submit, .clear-btn {
+    width: 20%;
+    min-width: 100px;
+    margin-top: 5px;
+}
+
+.btn-watched, .btn-wantToWatch {
+    width: 100%;
+}
+
+/* container-info */
+
+.container-info {
+    background-color: #ffffff;
+    border: 1px solid #e5e5e5;
+    margin: 20px auto;
+    padding: 30px;
+}
+
+/* movie */
+
+.movie-poster, .movie-details {
+    margin: auto;
+}
+
+.movie-details .movie-details__title {
+    font-weight: bold;
+}
+
+/* comment */
+
+.comment {
+    background-color: #f0f0f0;
+    padding: 10px 15px;
+    margin: 10px 0;
+}
+
+.comment .comment__glyphicon {
+    color: gray;
+    cursor: pointer;
+}
+
+.comment .comment__glyphicon:hover {
+    color: #000000;
+    cursor: pointer;
+}
+
+.comment .comment__glyphicon-btn {
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+/* extremes */
+
+.extremes {
+    display: flex;
+    justify-content: space-between;
+}
+
+.extremes .extremes__author {
+    font-weight: bold;
+}
+
+.extremes .extremes__glyphicon {
+    color: gray;
+    cursor: pointer;
+}
+
+.extremes .extremes__glyphicon:hover {
+    color: #000000;
+    cursor: pointer;
+}
+
+.extremes .extremes__glyphicon-btn {
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.extremes .extremes__header {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.extremes .extremes__btn-edit {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* comment-form */
+
+.comment-form .comment-form__textarea {
+    width: 100%;    
+}
+
+.comment-form .comment-form__align-right {
+    text-align: right;
+}
+
+/* profile */
+
+.profile .profile__watched, .profile .profile__want-to-watch, .profile .profile__left {
+    background-color: #ffffff;
+    border: 1px solid #e5e5e5;
+    padding: 10px 25px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.profile .profile__want-to-watch, .profile .profile__watched {
+    height: 300px;
+}
+
+.profile .profile__info {
+    background-color: #ffffff;
+    border: 1px solid #e5e5e5;
+    margin: 20px auto;
+    padding: 30px;
+}
+
+.profile .profile__left {
+    padding-top: 20px;
+    height: 630px;
+}
+
+.profile .profile__username {
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.profile .profile__about {
+    height: 430px;
+    overflow: auto;
+}
+
+.profile .profile__list-movies {
+    margin-top: 15px;
+    overflow: auto;
+    height: 200px;
+}
+
+.profile .profile__glyphicon {
+    color: gray;
+    cursor: pointer;
+}
+
+.profile .profile__glyphicon:hover {
+    color: #000000;
+    cursor: pointer;
+}
+
+.profile .profile__btn-glyphicon {
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+
+
+
 
 a {
     color: #7c7c7c;
@@ -22,19 +227,10 @@ a.thumbnail:hover {
     display: inline;
 }
 
-#form-register {
-    width: 70%;
-    margin: 40px auto;
-}
-
-#form-login {
-    width: 40%;
-    margin: 40px auto;
-}
-
 #search {
     min-width: 300px;
 }
+
 .search {
     display: none;
 }
@@ -61,127 +257,8 @@ a.thumbnail:hover {
     text-align: center;
 }
 
-.title {
-    font-weight: bold;
-    margin-bottom: 0;
-    margin-top: 10px;
-}
-
-.container-info {
-    background-color: #ffffff;
-    border: 1px solid #e5e5e5;
-    margin: 20px auto;
-    padding: 30px;
-}
-
-.info {
-    margin: auto;
-}
-
-.comments {
-    margin-top: 50px;
-    border: 1px solid #d4d7db;
-}
-
-.img-responsive {
-    margin: auto;
-}
-
-.field-title, .author {
-    font-weight: bold;
-}
-
-.align-right {
-    text-align: right;
-}
-
-.center {
-    text-align: center;
-}
-
-.comment {
-    background-color: #f0f0f0;
-    padding: 10px 15px;
-    margin: 10px 0;
-}
-
-.comment-textarea {
-    width: 100%;    
-}
-
-.btn-watched, .btn-wantToWatch {
-    width: 100%;
-}
-
-.edit-btn {
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.btn-center {
-    margin: 0 auto;
-}
-
-.profile-watched, .profile-wantToWatch, .profile-left {
-    background-color: #ffffff;
-    border: 1px solid #e5e5e5;
-    padding: 10px 25px;
-    margin-top: 20px;
-    margin-bottom: 30px;
-}
-
-.profile-left {
-    padding-top: 20px;
-    height: 630px;
-}
-
-.profile-wantToWatch, .profile-watched {
-    height: 300px;
-}
-
-.list-movies {
-    margin-top: 15px;
-    overflow: auto;
-    height: 200px;
-}
-
-.about {
-    height: 430px;
-    overflow: auto;
-}
-
 .block {
     display: block;
-}
-
-.submit-btn, .clear-btn {
-    width: 20%;
-    min-width: 100px;
-    margin-top: 5px;
-}
-
-.extremes {
-    display: flex;
-    justify-content: space-between;
-}
-
-.glyphicon-general {
-    color: gray;
-    cursor: pointer;
-}
-
-.glyphicon-general:hover {
-    color: #000000;
-    cursor: pointer;
-}
-
-.glyphicon-btn {
-    background-color: transparent;
-    background-repeat: no-repeat;
-    border: none;
-    cursor: pointer;
-    overflow: hidden;
 }
 
 .navbar-inverse .navbar-nav > li > a, .navbar-inverse .navbar-brand {
@@ -200,16 +277,6 @@ li .glyphicon-navbar:hover, .navbar-inverse .navbar-brand:hover {
     margin-left: 10px;
     margin-right: 0;
     font-size: 14px;
-}
-
-.profile-header {
-    margin-top: 5px;
-    margin-bottom: 5px;
-}
-
-.profile-header-username {
-    margin-top: 0;
-    margin-bottom: 20px;
 }
 
 /* Scrollbar */
@@ -247,7 +314,7 @@ li .glyphicon-navbar:hover, .navbar-inverse .navbar-brand:hover {
         overflow: auto;
     }
     
-    #form-login {
+    .form-login {
         width: 60%;
         margin: 40px auto;
     }
